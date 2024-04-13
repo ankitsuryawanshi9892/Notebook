@@ -37,6 +37,7 @@ router.post('/addnote', fetchuser, [
     body('title', 'Enter a valid title').isLength({ min: 3 }),
     body('description', 'Description must be at least 5 characters').isLength({ min: 5 }),
 ], upload.single('file'), async (req, res) => {
+    console.log(req.file)
     try {
         const { title, description, tag} = req.body;
         // If there are errors, return Bad request and the errors
@@ -73,7 +74,8 @@ router.post('/addnote', fetchuser, [
 
 
 // ROUTE 3: Update an existing Note using: PUT "/api/notes/updatenote". Login required
-router.put('/updatenote/:id', fetchuser, async (req, res) => {
+// ROUTE 3: Update an existing Note using: PUT "/api/notes/updatenote". Login required
+router.put('/updatenote/:id', fetchuser, upload.single('file'), async (req, res) => {
     const { title, description, tag } = req.body;
     try {
         // Create a newNote object
@@ -81,7 +83,13 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
         if (title) { newNote.title = title };
         if (description) { newNote.description = description };
         if (tag) { newNote.tag = tag };
-
+        if (req.file) {
+            newNote.file = {
+                filename: req.file.filename,
+                path: req.file.path
+            };
+        }
+        
         // Find the note to be updated and update it
         let note = await Note.findById(req.params.id);
         if (!note) { return res.status(404).send("Not Found") }
@@ -95,7 +103,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
-})
+});
 
 // ROUTE 4: Delete an existing Note using: DELETE "/api/notes/deletenote". Login required
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {

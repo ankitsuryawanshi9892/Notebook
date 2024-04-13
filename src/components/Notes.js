@@ -17,27 +17,32 @@ const Notes = (props) => {
         else{
             navigate('/login');
         }
-    }, [])
+    }, [editNote])
     const ref = useRef(null)
     const refClose = useRef(null)
-    const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: ""})
+    const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: "",efile:""})
 
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag:currentNote.tag})
+        setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag:currentNote.tag,efile:currentNote.file})
     }
 
     const handleClick = (e)=>{ 
-        editNote(note.id, note.etitle, note.edescription, note.etag)
+        editNote(note.id, note.etitle, note.edescription, note.etag,note.efile)
         refClose.current.click();
         props.showAlert("Note Updated Successfully", "success");     
 
     }
 
-    const onChange = (e)=>{
-        setNote({...note, [e.target.name]: e.target.value})
-    }
-
+    const onChange = (e) => {
+        // If the changed element is the file input, set the file state
+        if (e.target.name === 'efile') {
+            setNote({ ...note, [e.target.name]: e.target.files[0] });
+        } else {
+            // Otherwise, set other form fields
+            setNote({ ...note, [e.target.name]: e.target.value });
+        }
+    };
 
 
     return (
@@ -69,7 +74,7 @@ const Notes = (props) => {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">File</label>
-                                    <input type="file" className="form-control" id="efile" name="efile" value={note.efile} onChange={onChange} />
+                                    <input accept='.pdf' type="file" className="form-control" id="efile" name="efile" onChange={onChange} />
                                 </div>
  
                             </form>

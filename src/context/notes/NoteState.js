@@ -47,6 +47,40 @@ const NoteState = (props) => {
         }
 
   }
+
+  // // Edit a Note
+  const editNote = async (id, title, description, tag, file) => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('tag', tag);
+    formData.append('file', file); // Append file to FormData
+
+    try {
+        // Make HTTP PUT request to backend
+        const response = await axios.put(`${host}/api/notes/updatenote/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Set content type header for FormData
+                "auth-token": localStorage.getItem('token')
+            }
+        });
+        // Handle successful response
+        console.log('Note updated:', response.data);
+
+        // Logic to update in client state, assuming 'notes' is your state variable holding all notes
+        const updatedNotes = notes.map((note) => {
+            if (note._id === id) {
+                return { ...note, title, description, tag, file };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
+    } catch (error) {
+        // Handle error
+        console.error('Error updating note:', error);
+    }
+}
+
   // Delete a Note
   const deleteNote = async (id) => {
     // API Call
@@ -62,32 +96,6 @@ const NoteState = (props) => {
     setNotes(newNotes)
   }
 
-  // Edit a Note
-  const editNote = async (id, title, description, tag) => {
-    // API Call 
-    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        "auth-token": localStorage.getItem('token')
-      },
-      body: JSON.stringify({title, description, tag})
-    });
-    const json = await response.json(); 
-
-     let newNotes = JSON.parse(JSON.stringify(notes))
-    // Logic to edit in client
-    for (let index = 0; index < newNotes.length; index++) {
-      const element = newNotes[index];
-      if (element._id === id) {
-        newNotes[index].title = title;
-        newNotes[index].description = description;
-        newNotes[index].tag = tag; 
-        break; 
-      }
-    }  
-    setNotes(newNotes);
-  }
 
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
