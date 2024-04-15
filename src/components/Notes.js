@@ -8,13 +8,13 @@ import "../css/noteslist.css"
 const Notes = (props) => {
     const context = useContext(noteContext);
     let navigate = useNavigate();
-    const { notes, getNotes, editNote } = context;
+    const { notes,getAllNotes, editNote } = context;
     
     // sort the notes
     notes.sort((a, b) => a.title.localeCompare(b.title));
     useEffect(() => {
         if(localStorage.getItem('token')){
-        getNotes();
+        getAllNotes();
         }
         else{
             navigate('/login');

@@ -31,6 +31,16 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
     }
 })
 
+router.get('/fetchallnoteswithoutid', async (req, res) => {
+    try {
+        const notes = await Note.find(); // Remove the user filter
+        res.json(notes);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 // ROUTE 2: Add a new Note using: POST "/api/notes/addnote". Login required
 router.post('/addnote', fetchuser, [
