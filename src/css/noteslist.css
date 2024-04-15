@@ -1,6 +1,9 @@
 .notesContainer {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding-right: 0px;
 }
 
 .note-item {
@@ -22,8 +25,10 @@
 }
 
 .desc{
+    display: inline-block;
     padding-bottom: 10px;
     padding-left: 10px;
+    text-align: left;
 }
 
   .icons-buttons{
@@ -31,11 +36,20 @@
     width: auto;
   }
 
+  .notesContainer{
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
 
+  .note-item p{
+    display: inline-block;
+  }
 @media screen and (min-width: 1004px) { /* Adjust the breakpoint as per your desktop layout */
     .note-item {
         width: calc(50% - 20px); /* Three items per row with some margin */
-        margin-right: 20px; /* Add some right margin to create space between items */
+        margin-right: 20px; /*Add some right margin to create space between items*/
     }
     
     .note-item:nth-child(2n) {

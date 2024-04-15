@@ -10,9 +10,7 @@
 .container .profession{
     margin-left: 10px;
 }
-.container .profile{
-    margin-left: 60px;
-}
+
 img{
     width: 100px;
     height: 100px;
@@ -33,4 +31,18 @@ img{
 
 .profession h4{
     text-transform: capitalize;
+    margin-bottom: 5rem;
+    margin-right: 5px;
+    gap: 5px;
 }
+
+
+.notes{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+    width: 100%;
+    
+}
+
