@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../css/profile.css'
+import '../css/style.css'
 
 const ImageUpload = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -54,11 +56,23 @@ const ImageUpload = () => {
     }, []);
 
     return (
-        <div>
-            <input type="file" accept='.jpg' onChange={handleImageChange} />
-            <button onClick={handleUpload}>Upload Image</button>
-            {/* Dynamically set the image source */}
-            <img src={imageUrl || 'image/avatar.jpg'} alt="Uploaded avatar" />
+
+        <div className="main">
+            <div className='container'>
+                <div className='profession'>
+                    <h4>Name</h4>
+                    <h4>Profession</h4>
+                </div>
+                <div className="profile">
+                    {/* Dynamically set the image source */}
+                    <img src={imageUrl || 'image/avatar.jpg'} alt="Uploaded avatar" /><br></br>
+                    <input className='my-1' type="file" accept='.jpg' onChange={handleImageChange} /><br></br>
+                    <button className='button my-3' onClick={handleUpload}>Upload Image</button>
+                </div>
+            </div>
+            <div className="notes">
+                
+            </div>
         </div>
     );
 };
