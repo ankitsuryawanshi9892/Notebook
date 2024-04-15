@@ -7,7 +7,8 @@ const port = 5000
 const path = require('path');
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-// console.log(path.join(__dirname,'../uploads'))
+// app.use('/images', express.static(path.join(__dirname,'../src/images')));
+// console.log(path.join(__dirname,'../public/images'))
 app.use(cors())
 app.use(express.json())
 

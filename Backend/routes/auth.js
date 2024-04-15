@@ -5,8 +5,38 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
-
+const multer = require('multer');
 const JWT_SECRET = 'Ankitisagoodb$oy';
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now()
+    cb(null, uniqueSuffix+file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+
+router.post('/upload-avatar', fetchuser, upload.single('avatar'), async (req, res) => {
+  // console.log(req.user.id);
+  // console.log(req.file)
+  try {
+      const userId = req.user.id;
+      const { filename } = req.file; // Get the uploaded filename
+
+      // Update user document with the new avatar path
+      const user = await User.findByIdAndUpdate(userId, { avatar: `images/${filename}` });
+      res.json({user:user, message: 'Image uploaded successfully!' });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+  }
+});
 
 // ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
 router.post('/createuser', [
@@ -99,11 +129,12 @@ router.post('/login', [
 
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
-router.post('/getuser', fetchuser,  async (req, res) => {
+router.get('/getuser', fetchuser,  async (req, res) => {
 
   try {
     userId = req.user.id;
     const user = await User.findById(userId).select("-password")
+    console.log(user)
     res.send(user)
   } catch (error) {
     console.error(error.message);

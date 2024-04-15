@@ -29,7 +29,6 @@ const NotesSchema = new Schema({
     file: {
         filename: String,
         path: String
-        // You can include additional fields for file metadata if needed
     }
 });
 
