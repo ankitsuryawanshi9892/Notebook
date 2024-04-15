@@ -1,22 +1,23 @@
 import React, {useState} from 'react'
 import { useNavigate,Link } from 'react-router-dom';
 import '../css/style.css'
+import '../css/signup.css'
 
 const Signup = (props) => {
 
-  const [credentials, setCredentials] = useState({name:"", email:"",password:"",cpassword:""})
+  const [credentials, setCredentials] = useState({name:"",profession:"", email:"",password:"",cpassword:""})
 
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password } = credentials;
+    const { name, email,profession, password } = credentials;
     const response = await fetch('http://localhost:5000/api/auth/createuser', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email,profession, password })
     });
   
     const json = await response.json();
@@ -37,7 +38,7 @@ const Signup = (props) => {
       setCredentials({...credentials,[e.target.name]:e.target.value})
   }
   return (
-    <div className='container'>
+    <div className='form-container'>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
@@ -46,6 +47,10 @@ const Signup = (props) => {
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
           <input type="email" name='email' className="form-control" id="email" onChange={onChange} aria-describedby="emailHelp"/>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="profession" className="form-label">Profession</label>
+          <input type="text" name='profession' className="form-control" id="profession" onChange={onChange} aria-describedby="emailHelp"/>
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>

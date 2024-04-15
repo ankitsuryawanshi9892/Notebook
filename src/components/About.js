@@ -6,8 +6,9 @@ import '../css/style.css'
 const ImageUpload = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null); // To display uploaded image
+    const [name, setname] = useState(null);
+    const [profession, setprofession] = useState(null);
     const host = "http://localhost:5000";
-
     // Function to fetch user data including avatar URL
     const fetchUserData = async () => {
         try {
@@ -18,7 +19,9 @@ const ImageUpload = () => {
                 }
             });
             if (response.data && response.data.avatar) {
+                setname(response.data.name);
                 setImageUrl(response.data.avatar);
+                setprofession(response.data.profession);
             }
         } catch (error) {
             console.error(error.message);
@@ -60,8 +63,8 @@ const ImageUpload = () => {
         <div className="main">
             <div className='container'>
                 <div className='profession'>
-                    <h4>Name</h4>
-                    <h4>Profession</h4>
+                    <h4>{name}</h4>
+                    <h4>{profession}</h4>
                 </div>
                 <div className="profile">
                     {/* Dynamically set the image source */}
@@ -71,7 +74,7 @@ const ImageUpload = () => {
                 </div>
             </div>
             <div className="notes">
-                
+
             </div>
         </div>
     );

@@ -30,3 +30,7 @@ img{
     align-items: center;
     flex-direction: column;
 }
+
+.profession h4{
+    text-transform: capitalize;
+}
