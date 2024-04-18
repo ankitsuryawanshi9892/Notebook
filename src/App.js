@@ -12,6 +12,7 @@ import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
+// require('dotenv').config()
 
 function App() {
   const [alert, setAlert] = useState(null);

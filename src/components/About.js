@@ -97,7 +97,7 @@ const ImageUpload = (props) => {
     // Fetch user data including avatar URL on component mount
     useEffect(() => {
         fetchUserData();
-    }, []);
+    }, [handleUpload]);
 
     return (
 
@@ -147,7 +147,12 @@ const ImageUpload = (props) => {
                 </div>
                 <div className="profile">
                     {/* Dynamically set the image source */}
-                    <img src={imageUrl || 'image/avatar.jpg'} alt="Uploaded avatar" /><br></br>
+                    {imageUrl ? (
+                    <img src={imageUrl} alt="Uploaded avatar" />
+                    ) : (
+                    <img src="images/user.png" alt="Default avatar" />
+                    )}
+                    <br />
                     <input className='my-1' type="file" accept='.jpg' onChange={handleImageChange} /><br></br>
                     <button className='button my-3' onClick={handleUpload}>Upload Image</button>
                 </div>

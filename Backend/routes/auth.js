@@ -7,30 +7,23 @@ var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
 const multer = require('multer');
 const JWT_SECRET = 'Ankitisagoodb$oy';
+const Upload = require('../helper/upload')
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now()
-    cb(null, uniqueSuffix+file.originalname)
-  }
+
+const uploader =multer({
+  storage:multer.diskStorage({}),
+  limits:{fileSize:5000000}
 })
 
-const upload = multer({ storage: storage })
-
-
-router.post('/upload-avatar', fetchuser, upload.single('avatar'), async (req, res) => {
+router.post('/upload-avatar', fetchuser, uploader.single('avatar'), async (req, res) => {
   // console.log(req.user.id);
-  // console.log(req.file)
   try {
       const userId = req.user.id;
-      const { filename } = req.file; // Get the uploaded filename
-
+      const upload = await Upload.uploadFile(req.file.path)
+      // console.log(upload);
       // Update user document with the new avatar path
-      const user = await User.findByIdAndUpdate(userId, { avatar: `images/${filename}` });
+      const user = await User.findByIdAndUpdate(userId, { avatar: upload.secure_url });
       res.json({user:user, message: 'Image uploaded successfully!' });
   } catch (error) {
       console.error(error.message);
