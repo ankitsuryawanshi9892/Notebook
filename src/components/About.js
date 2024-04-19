@@ -14,6 +14,7 @@ const ImageUpload = (props) => {
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     const [profession, setprofession] = useState(null);
+    const [isClicked, setIsClicked] = useState(false);
     const host = "http://localhost:5000";
     // Function to fetch user data including avatar URL
     const ref = useRef(null)
@@ -58,13 +59,15 @@ const ImageUpload = (props) => {
         formData.append('avatar', selectedImage);
         
         try {
+            setIsClicked(true);
             const response = await axios.post(`${host}/api/auth/upload-avatar`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Required for file uploads
                     'auth-token': localStorage.getItem('token') // Include auth token
                 }
             });
-
+            
+            setIsClicked(false);
             setImageUrl(response.data.user.avatar); // Update the image URL for display
             props.showAlert("Image Uploaded Successfully", "success");
         } catch (error) {
@@ -155,8 +158,11 @@ const ImageUpload = (props) => {
                     )}
                     <br />
                     <input className='my-1' type="file" accept='.jpg' onChange={handleImageChange} /><br></br>
-                    <button className='button my-3' onClick={handleUpload}>Upload Image</button>
+                    <button className='button my-3' onClick={handleUpload}>
+                        {isClicked ? 'Uploading...' : 'Upload Image'}
+                    </button>
                 </div>
+
             </div>
             <div className="row my-3 notesContainer">
                 <h2>Your Notes</h2>
