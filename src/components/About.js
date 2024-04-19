@@ -66,6 +66,7 @@ const ImageUpload = (props) => {
             });
 
             setImageUrl(response.data.user.avatar); // Update the image URL for display
+            props.showAlert("Image Uploaded Successfully", "success");
         } catch (error) {
             console.error(error.message);
             // Handle upload errors gracefully
