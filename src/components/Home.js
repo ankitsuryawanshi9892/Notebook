@@ -3,7 +3,7 @@ import Notes from './Notes';
 export const Home = (props) => {
     const {showAlert} = props;
     return (
-        <div> 
+        <div className='notes-container'> 
             <Notes showAlert={showAlert}/>
         </div>
     )
