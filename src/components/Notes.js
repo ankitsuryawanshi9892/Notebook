@@ -91,6 +91,7 @@ const Notes = (props) => {
 
             <div className="Parent">
                 <h1>NOTES</h1>
+                <button className="button add-button">Add A Note</button>
                 <div className="container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
                 </div>
