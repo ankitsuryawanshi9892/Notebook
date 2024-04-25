@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate,Link } from 'react-router-dom';
 import '../css/style.css'
-import '../css/signup.css'
 
 const Signup = (props) => {
 

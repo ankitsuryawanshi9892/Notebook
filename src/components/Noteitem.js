@@ -1,6 +1,5 @@
 import React, {useContext} from 'react'
 import noteContext from "../context/notes/noteContext"
-import "../css/noteslist.css" 
 
 const Noteitem = (props) => {
     const showPdf = (pdf)=>{
@@ -10,24 +9,21 @@ const Noteitem = (props) => {
     const { deleteNote } = context;
     const { note, updateNote } = props;
     return (
-        <div className="col-md-3 note-item">
-            <div className="card my-3">
-                <div className="card-body parent">
-                    <div className="title">
-                        <h5 className="item">{note.title}</h5>
-                    </div>
-                    <div className="icons-buttons">
-                    <div className="d-flex align-items-center icons">
-                        <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
-                        <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
-                        <button className='button btn btn-primary item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
-                    </div>
-                    </div>
+        <>
+        <div className="boxes">
+            <div className="title-icons">
+                <div className="title">
+                    <h5>{note.title}</h5>
                 </div>
-                <p className="card-text desc">{note.description}</p>
-
+                <div className="icons">
+                    <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
+                    <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
+                    <button className='button btn btn-primary item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
+                </div>
             </div>
+            <p className="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum iste asperiores vero aut ab, voluptatem quod dolor voluptas. Aliquam ipsam labore exercitationem enim blanditiis explicabo reprehenderit iusto inventore nam sint.</p>
         </div>
+        </>
     )
 }
 

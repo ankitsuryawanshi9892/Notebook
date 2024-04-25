@@ -3,7 +3,7 @@ import noteContext from "../context/notes/noteContext"
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import { useNavigate } from 'react-router-dom';
-import "../css/noteslist.css" 
+import "../css/style.css" 
 
 const Notes = (props) => {
     const context = useContext(noteContext);
@@ -49,7 +49,7 @@ const Notes = (props) => {
 
     return (
         <>
-            <AddNote showAlert = {props.showAlert} />
+            {/* <AddNote showAlert = {props.showAlert} /> */}
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -89,14 +89,16 @@ const Notes = (props) => {
                 </div>
             </div>
 
-            <div className="row my-3 notesContainer">
-                <h2>Notes For You</h2>
+            <div className="Parent">
+                <h1>NOTES</h1>
                 <div className="container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
                 </div>
-                {notes.map((note) => {
-                    return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
-                })}
+                <div className="main">
+                    {notes.map((note) => {
+                        return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
+                    })}
+                </div>
             </div>
         </>
     )

@@ -1,9 +1,7 @@
 import React, { useContext,useState,useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../css/profile.css'
 import '../css/style.css'
-import '../css/noteslist.css'
 import noteContext from "../context/notes/noteContext"
 import Noteitem from './Noteitem';
 const ImageUpload = (props) => {
