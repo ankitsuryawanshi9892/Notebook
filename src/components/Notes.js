@@ -23,6 +23,11 @@ const Notes = (props) => {
     const ref = useRef(null)
     const refClose = useRef(null)
     const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: "",efile:""})
+    const [showAddNote, setShowAddNote] = useState(false); // State to track whether to show AddNote component
+
+    const toggleAddNote = () => {
+        setShowAddNote(!showAddNote);
+    };
 
     const updateNote = (currentNote) => {
         ref.current.click();
@@ -49,7 +54,7 @@ const Notes = (props) => {
 
     return (
         <>
-            {/* <AddNote showAlert = {props.showAlert} /> */}
+            {showAddNote && <AddNote showAlert={props.showAlert} toggleAddNote={toggleAddNote} show={showAddNote} />}
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -91,7 +96,7 @@ const Notes = (props) => {
 
             <div className="Parent">
                 <h1>NOTES</h1>
-                <button className="button add-button">Add A Note</button>
+                <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
                 <div className="container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
                 </div>

@@ -3,7 +3,7 @@ import noteContext from "../context/notes/noteContext";
 import axios from 'axios'; // Import Axios for making HTTP requests
 import '../css/style.css';
 
-const AddNote = () => {
+const AddNote = ({ toggleAddNote, show }) => {
     const context = useContext(noteContext);
     const { addNote } = context;
     const [note, setNote] = useState({ title: "", description: "", tag: "", file: null }); // Add file state
@@ -12,6 +12,7 @@ const AddNote = () => {
         e.preventDefault();        
         addNote(note.title,note.description,note.tag,note.file);
         setNote({ title: "", description: "", tag: "", file: null });
+        toggleAddNote();
     };
 
     const onChange = (e) => {
@@ -26,7 +27,7 @@ const AddNote = () => {
 
 
     return (
-        <div className="form-container my-3">
+        <div className={`form-container my-3 ${show ? 'visible' : ''}`}>
             <h2>Add a Note</h2>
             <form className="my-3" id='uploadform'>
                 <div className="mb-3">
