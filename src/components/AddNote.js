@@ -28,7 +28,10 @@ const AddNote = ({ toggleAddNote, show }) => {
 
     return (
         <div className={`form-container my-3 ${show ? 'visible' : ''}`}>
-            <h2>Add a Note</h2>
+            <div className="form-head">
+                <h2>Add a Note</h2>
+                <i onClick={()=>{toggleAddNote()}} className="fa-solid fa-square-xmark"></i>
+            </div>
             <form className="my-3" id='uploadform'>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>

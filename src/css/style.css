@@ -200,3 +200,8 @@
 .tooltip:hover .tooltiptext {
   display: block;
 }
+
+.form-head{
+  display: flex;
+  justify-content: space-between;
+}
