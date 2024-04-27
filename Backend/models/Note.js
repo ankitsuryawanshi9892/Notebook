@@ -1,6 +1,7 @@
+const { type } = require('@testing-library/user-event/dist/type');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-
+const {ObjectId} = mongoose.Schema.Types
 const NotesSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -10,6 +11,7 @@ const NotesSchema = new Schema({
         type: String,
         required: true
     },
+    likes:[{type:ObjectId,ref:"user"}],
     description: {
         type: String,
         required: true

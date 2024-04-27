@@ -87,6 +87,7 @@ router.post('/addnote', fetchuser, [
 // ROUTE 3: Update an existing Note using: PUT "/api/notes/updatenote". Login required
 router.put('/updatenote/:id', fetchuser, upload.single('file'), async (req, res) => {
     const { title, description, tag } = req.body;
+    console.log(req.body)
     try {
         // Create a newNote object
         const newNote = {};
@@ -135,32 +136,34 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
     }
 })
 
-// ROUTE 5: Share a Note using: GET "/api/notes/share/:uid". Login required
-router.get('/share/:uid', fetchuser, async (req, res) => {
+// ROUTE 5: Like an existing Note using: PUT "/api/notes/like". Login required
+router.put('/like/:id', fetchuser, async (req, res) => {
     try {
-        // Extract the UID from request parameters
-        const uid = req.params.uid;
-
-        // Find the note based on the UID
-        const note = await Note.findOne({ uid });
-
-        // If note is not found, return 404 Not Found
-        if (!note) {
-            return res.status(404).json({ error: "Note not found" });
-        }
-
-        // If the user does not own the note, return 401 Unauthorized
-        if (note.user.toString() !== req.user.id) {
-            return res.status(401).json({ error: "Not allowed to access this note" });
-        }
-
-        // If the note is found and the user owns it, return the note
-        res.json(note);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
+        const result = await Note.findByIdAndUpdate(req.params.id, {
+            $push: { likes: req.user.id }
+        }, {
+            new: true
+        })
+        res.json(result)
+    } catch (err) {
+        return res.status(422).json({ error: err })
     }
-});
+})
+
+// ROUTE 6: UnLike an existing Note using: PUT "/api/notes/unlike". Login required
+router.put('/unlike/:id', fetchuser, async (req, res) => {
+    try {
+        const result = await Note.findByIdAndUpdate(req.params.id, {
+            $pull: { likes: req.user.id }
+        }, {
+            new: true
+        })
+        res.json(result)
+    } catch (err) {
+        return res.status(422).json({ error: err })
+    }
+})
+
 
 module.exports = router
 

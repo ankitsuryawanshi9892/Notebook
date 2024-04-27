@@ -80,7 +80,7 @@ const NoteState = (props) => {
         // Handle successful response
         console.log('Note updated:', response.data);
 
-        // Logic to update in client state, assuming 'notes' is your state variable holding all notes
+        // Logic to update in client state
         const updatedNotes = notes.map((note) => {
             if (note._id === id) {
                 return { ...note, title, description, tag, file };

@@ -16,6 +16,7 @@ const Noteitem = (props) => {
                     <h5>{note.title}</h5>
                 </div>
                 <div className="icons">
+                    <i class="fa-regular fa-heart mx-2"></i>
                     <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
                     <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
                     <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
