@@ -178,8 +178,8 @@ router.get('/isliked/:id', fetchuser, async (req, res) => {
 
         // Check if the user's ID exists in the likes array of the note
         const isLiked = note.likes.includes(userId);
-        // console.log()
-        res.json({ isLiked });
+        // console.log(note)
+        res.json({ isLiked,note });
     } catch (err) {
         return res.status(500).json({ error: 'Server error' });
     }

@@ -213,3 +213,8 @@
   border-radius: 5px;
   margin-left: 5rem;
 }
+
+.like-count{
+  margin-right: 6px;
+  margin-left: -5px;
+}
