@@ -57,6 +57,11 @@ const Noteitem = (props) => {
         }
     };
 
+    const [dropdown, setdropdown] = useState(false)
+    const handleDropdown=()=>{
+        setdropdown(!dropdown);
+    }
+
 
     return (
         <>
@@ -71,9 +76,36 @@ const Noteitem = (props) => {
                 ) : (
                     <i className='fa-solid fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
                 )}
-                    <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
-                    <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
                     <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
+                    <i className="fa-solid fa-ellipsis-vertical mx-2" onClick={handleDropdown}></i>
+                    {dropdown && <div className="del-up mx-6">
+                        <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
+                        <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
+                    </div>}
+                </div>
+            </div>
+            <p>{note.date.split("T")[0]}</p>
+            <div className="scrollable-content">
+                <p className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas minus dolorem rerum, aliquid nam accusamus illum neque, placeat saepe doloribus sit laboriosam ab, similique ipsum iste. Ea eaque officiis laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, praesentium nisi cupiditate ipsa molestias atque ex est error quaerat ratione recusandae asperiores eaque tempore eligendi quibusdam nesciunt aspernatur cum modi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum iste asperiores vero aut ab, voluptatem quod dolor voluptas. Aliquam ipsam labore exercitationem enim blanditiis explicabo reprehenderit iusto inventore nam sint.</p>
+            </div>
+        </div>
+        <div className="boxes">
+            <div className="title-icons">
+                <div className="title">
+                    <h5>{note.title}</h5>
+                </div>
+                <div className="icons">
+                {!isLiked ? (
+                    <i className='fa-regular fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
+                ) : (
+                    <i className='fa-solid fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
+                )}
+                    <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
+                    <i className="fa-solid fa-ellipsis-vertical mx-2" onClick={handleDropdown}></i>
+                    {dropdown && <div className="del-up mx-6">
+                        <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
+                        <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
+                    </div>}
                 </div>
             </div>
             <p>{note.date.split("T")[0]}</p>

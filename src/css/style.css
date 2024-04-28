@@ -114,7 +114,7 @@
 }
 
 /* CSS for AddNote component */
-.form-container {
+.form-container-addnote {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -128,27 +128,27 @@
   opacity: 0; /* Initially invisible */
 }
 
-.form-container input{
+.form-container-addnote input{
   margin-left: 7px;
 }
-.form-container input[id='description']{
+.form-container-addnote input[id='description']{
   height: 50px;
 }
-.form-container.visible {
+.form-container-addnote.visible {
   opacity: 1; /* Make visible */
 }
 
 /* Smooth appearance of form content */
-.form-container form {
+.form-container-addnote form {
   transition: opacity 0.5s ease-in-out; /* Adjust the duration as needed */
   opacity: 0; /* Initially invisible */
 }
 
-.form-container.visible form {
+.form-container-addnote.visible form {
   opacity: 1; /* Make visible */
 }
 
-.form-container textarea {
+.form-container-addnote textarea {
   /* Set textarea to start from top left corner */
   resize: vertical; /* Allow vertical resizing */
   padding: 5px; /* Add padding for better appearance */
@@ -204,4 +204,12 @@
 .form-head{
   display: flex;
   justify-content: space-between;
+}
+
+.del-up{
+  background-color: #344e41;
+  margin-top: -70px;
+  width: 4rem;
+  border-radius: 5px;
+  margin-left: 5rem;
 }

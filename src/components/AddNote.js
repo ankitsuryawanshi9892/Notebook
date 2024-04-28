@@ -27,7 +27,7 @@ const AddNote = ({ toggleAddNote, show }) => {
 
 
     return (
-        <div className={`form-container my-3 ${show ? 'visible' : ''}`}>
+        <div className={`form-container-addnote my-3 ${show ? 'visible' : ''}`}>
             <div className="form-head">
                 <h2>Add a Note</h2>
                 <i onClick={()=>{toggleAddNote()}} className="fa-solid fa-square-xmark"></i>
