@@ -64,6 +64,20 @@ const Noteitem = (props) => {
         setdropdown(!dropdown);
     }
 
+    const handleClickOutside = (event) => {
+        // Check if the click event originated from outside the dropdown or the three dots icon
+        if (!event.target.closest(".del-up") && !event.target.closest(".fa-ellipsis-vertical")) {
+            setdropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside);
+        // Clean up the event listeners when the component unmounts
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
