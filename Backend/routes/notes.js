@@ -164,6 +164,26 @@ router.put('/unlike/:id', fetchuser, async (req, res) => {
     }
 })
 
+// ROUTE 7: Check if the user has liked a note using: GET "/api/notes/isliked/:id". Login required
+router.get('/isliked/:id', fetchuser, async (req, res) => {
+    try {
+        const noteId = req.params.id;
+        const userId = req.user.id;
+
+        // Check if the user has liked the note
+        const note = await Note.findById(noteId);
+        if (!note) {
+            return res.status(404).json({ error: 'Note not found' });
+        }
+
+        // Check if the user's ID exists in the likes array of the note
+        const isLiked = note.likes.includes(userId);
+        // console.log()
+        res.json({ isLiked });
+    } catch (err) {
+        return res.status(500).json({ error: 'Server error' });
+    }
+});
 
 module.exports = router
 

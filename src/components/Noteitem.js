@@ -1,5 +1,6 @@
 import React, {useContext} from 'react'
 import noteContext from "../context/notes/noteContext"
+import { useState,useEffect } from 'react'
 
 const Noteitem = (props) => {
     const showPdf = (pdf)=>{
@@ -8,6 +9,55 @@ const Noteitem = (props) => {
     const context = useContext(noteContext);
     const { deleteNote } = context;
     const { note, updateNote } = props;
+    const [isLiked, setisLiked] = useState(false)
+
+    useEffect(() => {
+        // Fetch initial like status of the note when component mounts
+        const fetchLikeStatus = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/notes/isliked/${note._id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': localStorage.getItem('token')
+                    }
+                });
+                if (res.ok) {
+                    const { isLiked } = await res.json();
+                    setisLiked(isLiked);
+                } else {
+                    console.error('Failed to fetch like status:', res.statusText);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        };
+
+        fetchLikeStatus();
+    }, [note._id]); // Only run this effect when note._id changes
+
+    const handleLike = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:5000/api/notes/${isLiked ? 'unlike' : 'like'}/${note._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token') // Include your authentication token here if needed
+                },
+                // body: JSON.stringify({}) // You can include data in the body if required by your backend
+            });
+            if (res.ok) {
+                const updatedNote = await res.json();
+                setisLiked(!isLiked);
+            } else {
+                console.error('Failed to like/unlike note:', res.statusText);
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    };
+
+
     return (
         <>
         <div className="boxes">
@@ -16,7 +66,11 @@ const Noteitem = (props) => {
                     <h5>{note.title}</h5>
                 </div>
                 <div className="icons">
-                    <i class="fa-regular fa-heart mx-2"></i>
+                {!isLiked ? (
+                    <i className='fa-regular fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
+                ) : (
+                    <i className='fa-solid fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
+                )}
                     <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
                     <i className="far fa-edit mx-2 item" onClick={()=>{updateNote(note)}}></i>
                     <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
