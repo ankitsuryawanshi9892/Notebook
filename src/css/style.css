@@ -334,7 +334,7 @@ a {
 .header__wrapper .cols__container .right__col nav {
   display: flex;
   align-items: center;
-  padding: 30px 0;
+  padding: 0 0;
   justify-content: space-between;
   flex-direction: column;
 }
@@ -354,7 +354,7 @@ a {
 .header__wrapper .cols__container .right__col nav button {
   border: none;
 
-  padding: 10px 25px;
+  padding: 4px 20px;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
@@ -373,10 +373,8 @@ a {
 
 .submit-button{
   width: 150px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }
+
 
 
 /* Responsiveness */

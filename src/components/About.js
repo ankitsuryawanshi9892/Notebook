@@ -1,4 +1,6 @@
 import React, { useContext,useState,useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/style.css'
@@ -49,9 +51,16 @@ const ImageUpload = (props) => {
         }
     };
 
-    
+    const [selectedFileName, setSelectedFileName] = useState('');
+
     const handleImageChange = (event) => {
         setSelectedImage(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+        setSelectedFileName("Image selected");
+        } else {
+        setSelectedFileName('');
+        }
     };
     
     const handleUpload = async () => {
@@ -70,6 +79,7 @@ const ImageUpload = (props) => {
             setIsClicked(false);
             setImageUrl(response.data.user.avatar); // Update the image URL for display
             props.showAlert("Image Uploaded Successfully", "success");
+            setSelectedFileName('');
         } catch (error) {
             console.error(error.message);
             // Handle upload errors gracefully
@@ -206,18 +216,31 @@ const ImageUpload = (props) => {
               <li><Link to="">Notes</Link></li>
               <li><Link to="">Questions</Link></li>
             </ul>
+            
             <div className="submit-button">
-                <input className='my-1' type="file" accept='.jpg' onChange={handleImageChange} /><br></br>
-                        <button className='button my-3' onClick={handleUpload}>
-                            {isClicked ? 'Uploading...' : 'Upload Image'}
-                        </button>
-            </div>
+      <label htmlFor="imageInput" className="custom-file-input">
+        <FontAwesomeIcon icon={faPlus} className="plus-icon" />
+        {selectedFileName ? selectedFileName : 'Add Image'}
+      </label>
+      <input
+        id="imageInput"
+        className="my-1"
+        type="file"
+        accept=".jpg"
+        onChange={handleImageChange}
+        style={{ display: 'none' }}
+      />
+      <br />
+      <button className="button my-3" onClick={handleUpload}>
+        {isClicked ? 'Uploading...' : 'Upload Image'}
+      </button>
+    </div>
 
           </nav>
 
           <div className="photos">
           <div className="Parent">
-                <h1>NOTES</h1>
+                <h1 className='sticky-heading'>NOTES</h1>
                 <div className="container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
                 </div>

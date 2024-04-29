@@ -95,7 +95,6 @@ const Notes = (props) => {
             </div>
 
             <div className="Parent">
-                <h1>NOTES</h1>
                 <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
                 <div className="container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
