@@ -1,5 +1,5 @@
 import React, { useContext,useState,useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/style.css'
 import noteContext from "../context/notes/noteContext"
@@ -10,8 +10,9 @@ const ImageUpload = (props) => {
     const [imageUrl, setImageUrl] = useState(null); // To display uploaded image
     const [name, setname] = useState(null);
     const context = useContext(noteContext);
-    const { notes, getNotes, editNote } = context;
+    const { notes, getNotes, editNote,getAllNotes } = context;
     const [profession, setprofession] = useState(null);
+    const [email, setemail] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
     const host = "http://localhost:5000";
     // Function to fetch user data including avatar URL
@@ -30,6 +31,7 @@ const ImageUpload = (props) => {
                 setname(response.data.name);
                 setImageUrl(response.data.avatar);
                 setprofession(response.data.profession);
+                setemail(response.data.email)
             }
         } catch (error) {
             console.error(error.message);
@@ -89,7 +91,7 @@ const ImageUpload = (props) => {
 
     useEffect(() => {
         if(localStorage.getItem('token')){
-        getNotes();
+        getAllNotes();
         }
         else{
             navigate('/login');
@@ -142,14 +144,14 @@ const ImageUpload = (props) => {
                     </div>
                 </div>
             </div>
-            <div className='container'>
+            {/* <div className='container'>
                 <div className='profession'>
                     <h4>{name}</h4>
                     <h4>{profession}</h4>
                 </div>
-                <div className="profile">
+                <div className="profile"> */}
                     {/* Dynamically set the image source */}
-                    {imageUrl ? (
+                    {/* {imageUrl ? (
                     <img src={imageUrl} alt="Uploaded avatar" />
                     ) : (
                     <img src="images/user.png" alt="Default avatar" />
@@ -170,7 +172,66 @@ const ImageUpload = (props) => {
                 {notes.map((note) => {
                     return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
                 })}
+            </div> */}
+            <div className="header__wrapper">
+      <header></header>
+      <div className="cols__container">
+        <div className="left__col">
+          <div className="img__container">
+            <img src={imageUrl} alt="profile" />
+            <span></span>
+          </div>
+          <h2>{name}</h2>
+          <p>{profession}</p>
+          <p>{email}</p>
+
+          <ul className="about">
+            {/* <li><span>4,073</span>Followers</li>
+            <li><span>322</span>Following</li> */}
+            <li><span>200,543</span>Notes</li>
+          </ul>
+
+          <div className="content">
+            <ul>
+              <li><i className="fab fa-twitter"></i></li>
+              <i className="fab fa-linkedin"></i>
+              <i className="fab fa-instagram"></i>
+              {/* <i className="fab fa-dribbble"></i> */}
+            </ul>
+          </div>
+        </div>
+        <div className="right__col">
+          <nav>
+            <ul>
+              <li><Link to="">Notes</Link></li>
+              <li><Link to="">Questions</Link></li>
+            </ul>
+            <div className="submit-button">
+                <input className='my-1' type="file" accept='.jpg' onChange={handleImageChange} /><br></br>
+                        <button className='button my-3' onClick={handleUpload}>
+                            {isClicked ? 'Uploading...' : 'Upload Image'}
+                        </button>
             </div>
+
+          </nav>
+
+          <div className="photos">
+          <div className="Parent">
+                <h1>NOTES</h1>
+                <div className="container mx-2"> 
+                {notes.length===0 && 'No notes to display'}
+                </div>
+                <div className="main">
+                    {notes.map((note) => {
+                        return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
+                    })}
+                </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
         </div>
     );
 };
