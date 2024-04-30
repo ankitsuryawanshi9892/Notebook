@@ -6,11 +6,38 @@ const Noteitem = (props) => {
     const showPdf = (pdf)=>{
         window.open(`http://localhost:5000/uploads/${pdf}`,"_blank","noreferrer")
     }
+    const [comment, setComment] = useState("")
     const context = useContext(noteContext);
     const { deleteNote } = context;
     const { note, updateNote } = props;
     const [isLiked, setisLiked] = useState(false)
     const [count, setcount] = useState(0)
+    const [isComment, setisComment] = useState(false);
+    const [data, setdata] = useState("")
+    const [heading, setheading] = useState(false);
+    const commentChange = (event) => {
+        setComment(event.target.value);
+    };
+
+    const handleCommentSubmit = (event) => {
+        event.preventDefault();
+        setisComment(true);
+        setdata(comment);
+        setheading(true);
+        setComment('');
+    };
+
+
+    useEffect(() => {
+        
+          const timer = setTimeout(() => {
+            setheading(false);
+          }, 2000);
+    
+          return () => clearTimeout(timer);
+        
+      }, [isComment]);
+    
     const handleLike = async (id) => {
         try {
             const res = await fetch(`http://localhost:5000/api/notes/${isLiked ? 'unlike' : 'like'}/${note._id}`, {
@@ -79,6 +106,8 @@ const Noteitem = (props) => {
         };
     }, []);
 
+
+
     return (
         <>
         <div className="boxes">
@@ -105,6 +134,28 @@ const Noteitem = (props) => {
             <div className="scrollable-content">
                 <p className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas minus dolorem rerum, aliquid nam accusamus illum neque, placeat saepe doloribus sit laboriosam ab, similique ipsum iste. Ea eaque officiis laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, praesentium nisi cupiditate ipsa molestias atque ex est error quaerat ratione recusandae asperiores eaque tempore eligendi quibusdam nesciunt aspernatur cum modi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum iste asperiores vero aut ab, voluptatem quod dolor voluptas. Aliquam ipsam labore exercitationem enim blanditiis explicabo reprehenderit iusto inventore nam sint.</p>
             </div>
+            <div className="comment">
+                <form>
+                    <input
+                    type="text"
+                    name="comment"
+                    value={comment}
+                    placeholder="Add a comment"
+                    onChange={commentChange}
+                    />
+                    {/* <button onClick={handleCommentSubmit} type="submit">Submit</button> */}
+                    <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={handleCommentSubmit}></i>
+                </form>
+            </div>
+            {/* <div className="comment-added">
+                {isComment?<h4>Comment Added...</h4> <p>data</p>:""}
+            </div> */}
+            {isComment ? (
+                <div>
+                    {heading && <h6>Comment Added...</h6>}
+                    <p>{data}</p>
+                </div>
+                ) : null}
         </div>
         </>
     )

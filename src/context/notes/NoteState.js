@@ -110,6 +110,44 @@ const NoteState = (props) => {
   }
 
 
+  // Add a Comment
+const addComment = async (noteId, commentText) => {
+  try {
+    // API Call
+    const response = await fetch(`${host}/api/notes/addcomment/${noteId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "auth-token": localStorage.getItem('token')
+      },
+      body: JSON.stringify({ text: commentText })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to add comment');
+    }
+
+    const newComment = await response.json();
+    
+    // Assuming notes is a state variable holding all notes
+    const updatedNotes = notes.map(note => {
+      if (note._id === noteId) {
+        return {
+          ...note,
+          comments: [...note.comments, newComment]
+        };
+      }
+      return note;
+    });
+
+    setNotes(updatedNotes);
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    // Handle error, perhaps display a message to the user
+  }
+}
+
+
 
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes,getAllNotes }}>

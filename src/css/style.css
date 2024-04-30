@@ -381,6 +381,18 @@ a {
   margin-top: 10px;
 }
 
+.comment input[type="text"]{
+  margin-top: 5px;
+  border: none;
+  border-bottom: 1px solid white;
+  background-color: #3a5a40;
+}
+
+.comment input::placeholder{
+  color:dad7cd;
+  padding-left: 10px;
+}
+
 /* Responsiveness */
 
 @media (min-width: 868px) {
