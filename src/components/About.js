@@ -231,8 +231,8 @@ const ImageUpload = (props) => {
         style={{ display: 'none' }}
       />
       <br />
-      <button className="button my-3" onClick={handleUpload}>
-        {isClicked ? 'Uploading...' : 'Upload Image'}
+      <button className="button" onClick={handleUpload}>
+        {isClicked ? 'Uploading...' : 'Change Profile'}
       </button>
     </div>
 

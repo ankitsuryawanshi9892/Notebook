@@ -353,11 +353,10 @@ a {
 }
 .header__wrapper .cols__container .right__col nav button {
   border: none;
-
   padding: 4px 20px;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 20px;
+  margin: 7px 0px;
 }
 
 .header__wrapper .cols__container .right__col .photos {
@@ -372,10 +371,15 @@ a {
 }
 
 .submit-button{
-  width: 150px;
+  width: 160px;
+  margin-left: 10px;
 }
 
-
+.submit-button label{
+  cursor: pointer;
+  margin:3px 18px;
+  margin-top: 10px;
+}
 
 /* Responsiveness */
 
