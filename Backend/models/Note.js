@@ -31,7 +31,12 @@ const NotesSchema = new Schema({
     file: {
         filename: String,
         path: String
-    }
+    },
+    comments: [{
+        text: String,
+        postedBy: String
+    }]
+
 });
 
 module.exports = mongoose.model('notes', NotesSchema);

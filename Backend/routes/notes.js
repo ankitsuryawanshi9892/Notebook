@@ -5,6 +5,7 @@ const Note = require('../models/Note');
 const { body, validationResult } = require('express-validator');
 const multer  = require('multer')
 const app = express();
+const User = require('../models/User');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -184,6 +185,24 @@ router.get('/isliked/:id', fetchuser, async (req, res) => {
         return res.status(500).json({ error: 'Server error' });
     }
 });
+
+router.put('/comment/:id', fetchuser, async (req, res) => {
+    const username = await User.findById(req.user.id)
+    const comment = {
+        text:req.body.text,
+        postedBy:username.name
+    }
+    try {
+        const result = await Note.findByIdAndUpdate(req.params.id, {
+            $push: {comments:comment}
+        }, {
+            new: true
+        })
+        res.json(result)
+    } catch (err) {
+        return res.status(422).json({ error: err })
+    }
+})
 
 module.exports = router
 
