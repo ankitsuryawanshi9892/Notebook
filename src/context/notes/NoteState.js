@@ -115,7 +115,7 @@ const addComment = async (noteId, commentText) => {
   try {
     // API Call
     const response = await fetch(`${host}/api/notes/addcomment/${noteId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         "auth-token": localStorage.getItem('token')

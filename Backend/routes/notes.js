@@ -204,6 +204,25 @@ router.put('/comment/:id', fetchuser, async (req, res) => {
     }
 })
 
+router.get('/viewComments/:id', fetchuser, async (req, res) => {
+    try {
+        const noteId = req.params.id;
+
+        // Check if the user has liked the note
+        const note = await Note.findById(noteId);
+        if (!note) {
+            return res.status(404).json({ error: 'Note not found' });
+        }
+
+        
+        // console.log(note)
+        res.json({ note });
+    } catch (err) {
+        return res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 module.exports = router
 
 

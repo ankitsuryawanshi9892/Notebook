@@ -20,22 +20,7 @@ const Noteitem = (props) => {
         setComment(event.target.value);
     };
 
-    // const handleCommentSubmit = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //       const response = await axios.put(`/api/comment/${note._id}`, { text: comment }); // Replace 'id' with your actual ID
-    //       const { data: updatedNote } = response.data; // Assuming API returns updated note data
-        //   setisComment(true);
-        //   setdata(comment);
-        //   setheading(true);
-        //   setComment('');
-        //   console.log('Comment added:', updatedNote);
-    //     } catch (error) {
-    //       console.error('Error adding comment:', error);
-    //       // Handle error here, e.g., show error message to the user
-    //     }
-    //   };
-
+    
         // Add a Comment
     const addComment = async (noteId, commentText) => {
         // event.preventDefault();

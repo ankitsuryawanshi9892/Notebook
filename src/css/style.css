@@ -84,6 +84,8 @@
   opacity: 1;
 }
 
+
+
 /* Hover effect for box pop-up */
 .boxes:hover {
   transform: translateY(-5px);
@@ -385,11 +387,14 @@ a {
   margin-top: 5px;
   border: none;
   border-bottom: 1px solid white;
+  color: #dad7cd;
   background-color: #3a5a40;
 }
 
-.comment input::placeholder{
-  color:dad7cd;
+
+
+.comment input::after{
+  color:#dad7cd;
   padding-left: 10px;
 }
 
