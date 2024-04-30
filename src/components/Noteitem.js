@@ -6,6 +6,7 @@ const Noteitem = (props) => {
     const showPdf = (pdf)=>{
         window.open(`http://localhost:5000/uploads/${pdf}`,"_blank","noreferrer")
     }
+    const host = "http://localhost:5000"
     const [comment, setComment] = useState("")
     const context = useContext(noteContext);
     const { deleteNote } = context;
@@ -19,14 +20,50 @@ const Noteitem = (props) => {
         setComment(event.target.value);
     };
 
-    const handleCommentSubmit = (event) => {
-        event.preventDefault();
+    // const handleCommentSubmit = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //       const response = await axios.put(`/api/comment/${note._id}`, { text: comment }); // Replace 'id' with your actual ID
+    //       const { data: updatedNote } = response.data; // Assuming API returns updated note data
+        //   setisComment(true);
+        //   setdata(comment);
+        //   setheading(true);
+        //   setComment('');
+        //   console.log('Comment added:', updatedNote);
+    //     } catch (error) {
+    //       console.error('Error adding comment:', error);
+    //       // Handle error here, e.g., show error message to the user
+    //     }
+    //   };
+
+        // Add a Comment
+    const addComment = async (noteId, commentText) => {
+        // event.preventDefault();
+        console.log(noteId,commentText);
+        try {
+        // API Call
+        const response = await fetch(`${host}/api/notes/comment/${noteId}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            "auth-token": localStorage.getItem('token')
+            },
+            body: JSON.stringify({ text: commentText })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to add comment');
+        }
         setisComment(true);
         setdata(comment);
         setheading(true);
         setComment('');
-    };
-
+    }    catch(error){
+        console.log(error);
+    }    
+    }
+    
+  
 
     useEffect(() => {
         
@@ -49,7 +86,7 @@ const Noteitem = (props) => {
                 // body: JSON.stringify({}) // You can include data in the body if required by your backend
             });
             if (res.ok) {
-                const updatedNote = await res.json();
+                // const updatedNote = await res.json();
                 setisLiked(!isLiked);
             } else {
                 console.error('Failed to like/unlike note:', res.statusText);
@@ -144,7 +181,7 @@ const Noteitem = (props) => {
                     onChange={commentChange}
                     />
                     {/* <button onClick={handleCommentSubmit} type="submit">Submit</button> */}
-                    <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={handleCommentSubmit}></i>
+                    <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={()=>{addComment(note._id,comment)}}></i>
                 </form>
             </div>
             {/* <div className="comment-added">
