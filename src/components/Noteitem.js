@@ -1,15 +1,16 @@
 import React, {useContext} from 'react'
 import noteContext from "../context/notes/noteContext"
 import { useState,useEffect } from 'react'
-
+import Comments from './Comments'
 const Noteitem = (props) => {
     const showPdf = (pdf)=>{
         window.open(`http://localhost:5000/uploads/${pdf}`,"_blank","noreferrer")
     }
     const host = "http://localhost:5000"
     const [comment, setComment] = useState("")
+    const [showComments, setShowComments] = useState(false);
     const context = useContext(noteContext);
-    const { deleteNote } = context;
+    const { deleteNote,getAllComments } = context;
     const { note, updateNote } = props;
     const [isLiked, setisLiked] = useState(false)
     const [count, setcount] = useState(0)
@@ -20,6 +21,21 @@ const Noteitem = (props) => {
         setComment(event.target.value);
     };
 
+    const toggleComments = () => {
+        setShowComments(!showComments);
+    };
+    const [comments, setComments] = useState([]);
+
+    const getAllCommentsHandler = async () => {
+        try {
+            const fetchedComments = await getAllComments(note._id);
+            toggleComments();
+            setComments(fetchedComments);
+        } catch (error) {
+            // Handle error
+            console.error("Error fetching comments:", error);
+        }
+    };
     
         // Add a Comment
     const addComment = async (noteId, commentText) => {
@@ -130,6 +146,8 @@ const Noteitem = (props) => {
 
 
 
+
+
     return (
         <>
         <div className="boxes">
@@ -168,6 +186,9 @@ const Noteitem = (props) => {
                     {/* <button onClick={handleCommentSubmit} type="submit">Submit</button> */}
                     <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={()=>{addComment(note._id,comment)}}></i>
                 </form>
+            <button className="button" onClick={getAllCommentsHandler}>
+                {showComments?'Hide Comments':"View Comments"}
+            </button>
             </div>
             {/* <div className="comment-added">
                 {isComment?<h4>Comment Added...</h4> <p>data</p>:""}
@@ -178,7 +199,11 @@ const Noteitem = (props) => {
                     <p>{data}</p>
                 </div>
                 ) : null}
+                {showComments && <Comments fetchComments={getAllComments} comments = {comments} noteId = {note._id} />}
+
         </div>
+
+
         </>
     )
 }

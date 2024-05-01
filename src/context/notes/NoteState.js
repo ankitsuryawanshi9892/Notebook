@@ -110,50 +110,67 @@ const NoteState = (props) => {
   }
 
 
-  // Add a Comment
-const addComment = async (noteId, commentText) => {
-  try {
-    // API Call
-    const response = await fetch(`${host}/api/notes/addcomment/${noteId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        "auth-token": localStorage.getItem('token')
-      },
-      body: JSON.stringify({ text: commentText })
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to add comment');
+  const getAllComments = async (id) => {
+    try {
+        const response = await fetch(`${host}/api/notes/viewComments/${id}`, {
+            method: 'GET',
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        });
+        const json = await response.json(); 
+        return json.note.comments; // Return the array of comments
+
+    } catch (error) {
+        console.error("Error fetching comments:", error);
+        // Handle error
+        return []; // Return an empty array in case of error
     }
-
-    const newComment = await response.json();
-    
-    // Assuming notes is a state variable holding all notes
-    const updatedNotes = notes.map(note => {
-      if (note._id === noteId) {
-        return {
-          ...note,
-          comments: [...note.comments, newComment]
-        };
-      }
-      return note;
-    });
-
-    setNotes(updatedNotes);
-  } catch (error) {
-    console.error('Error adding comment:', error);
-    // Handle error, perhaps display a message to the user
-  }
 }
 
-
-
-  return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes,getAllNotes }}>
+return (
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
       {props.children}
     </NoteContext.Provider>
   )
-
 }
+
+// Add a Comment
+// const addComment = async (noteId, commentText) => {
+//   try {
+//     // API Call
+//     const response = await fetch(`${host}/api/notes/addcomment/${noteId}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         "auth-token": localStorage.getItem('token')
+//       },
+//       body: JSON.stringify({ text: commentText })
+//     });
+  
+//     if (!response.ok) {
+//       throw new Error('Failed to add comment');
+//     }
+
+//     const newComment = await response.json();
+  
+//     // Assuming notes is a state variable holding all notes
+//     const updatedNotes = notes.map(note => {
+//       if (note._id === noteId) {
+//         return {
+//           ...note,
+//           comments: [...note.comments, newComment]
+//         };
+//       }
+//       return note;
+//     });
+
+//     setNotes(updatedNotes);
+//   } catch (error) {
+//     console.error('Error adding comment:', error);
+//     // Handle error, perhaps display a message to the user
+//   }
+// }
+
+
 export default NoteState;
