@@ -182,15 +182,18 @@ const Noteitem = (props) => {
                 {showComments?'Hide Comments':`View all ${comments.length} Comments`}
             </div>
                 <form>
-                    <input
+                <input
                     type="text"
                     name="comment"
                     value={comment}
                     placeholder="Add a comment"
                     onChange={commentChange}
-                    />
-                    {/* <button onClick={handleCommentSubmit} type="submit">Submit</button> */}
-                    <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={()=>{addComment(note._id,comment)}}></i>
+                />
+                {/* Conditionally render the icon */}
+                {comment.trim().length > 0 && (
+                    <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={() => {addComment(note._id, comment)}}></i>
+                )}
+
                 </form>
             </div>
             {/* <div className="comment-added">
