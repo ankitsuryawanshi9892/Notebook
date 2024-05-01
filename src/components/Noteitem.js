@@ -8,7 +8,7 @@ const Noteitem = (props) => {
     }
     const host = "http://localhost:5000"
     const [comment, setComment] = useState("")
-    const [showComments, setShowComments] = useState(false);
+    const [showComments, setShowComments] = useState(true);
     const context = useContext(noteContext);
     const { deleteNote,getAllComments } = context;
     const { note, updateNote } = props;
@@ -29,14 +29,17 @@ const Noteitem = (props) => {
     const getAllCommentsHandler = async () => {
         try {
             const fetchedComments = await getAllComments(note._id);
-            toggleComments();
             setComments(fetchedComments);
+            toggleComments();
         } catch (error) {
             // Handle error
             console.error("Error fetching comments:", error);
         }
     };
     
+    useEffect(()=>{
+        getAllCommentsHandler();
+    },[])
         // Add a Comment
     const addComment = async (noteId, commentText) => {
         // event.preventDefault();
@@ -175,6 +178,9 @@ const Noteitem = (props) => {
                 <p className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas minus dolorem rerum, aliquid nam accusamus illum neque, placeat saepe doloribus sit laboriosam ab, similique ipsum iste. Ea eaque officiis laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, praesentium nisi cupiditate ipsa molestias atque ex est error quaerat ratione recusandae asperiores eaque tempore eligendi quibusdam nesciunt aspernatur cum modi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum iste asperiores vero aut ab, voluptatem quod dolor voluptas. Aliquam ipsam labore exercitationem enim blanditiis explicabo reprehenderit iusto inventore nam sint.</p>
             </div>
             <div className="comment">
+            <div className="div-button" style={{ cursor: 'pointer' }} onClick={getAllCommentsHandler}>
+                {showComments?'Hide Comments':`View all ${comments.length} Comments`}
+            </div>
                 <form>
                     <input
                     type="text"
@@ -186,9 +192,6 @@ const Noteitem = (props) => {
                     {/* <button onClick={handleCommentSubmit} type="submit">Submit</button> */}
                     <i className="fa-solid fa-arrow-right-from-bracket mx-2" style={{fontSize:"20px"}} onClick={()=>{addComment(note._id,comment)}}></i>
                 </form>
-            <button className="button" onClick={getAllCommentsHandler}>
-                {showComments?'Hide Comments':"View Comments"}
-            </button>
             </div>
             {/* <div className="comment-added">
                 {isComment?<h4>Comment Added...</h4> <p>data</p>:""}
@@ -199,7 +202,7 @@ const Noteitem = (props) => {
                     <p>{data}</p>
                 </div>
                 ) : null}
-                {showComments && <Comments fetchComments={getAllComments} comments = {comments} noteId = {note._id} />}
+                {showComments && <Comments fetchComments={getAllComments} comments = {comments} noteId = {note._id} show={showComments} />}
 
         </div>
 

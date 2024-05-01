@@ -1,13 +1,13 @@
 import React from 'react'
-function Comments({comments}) {
+import '../css/style.css';
+
+function Comments({comments,show}) {
     return (
-        <div>
-      <h1>Note Page</h1>
-      <h2>Comments for Note</h2>
+        <div className={`comment-container my-3 comments ${show ? 'visible' : ''}`}>
       {comments.map(comment => (
-        <div key={comment.id} className="comment">
+        <div key={comment.id} className="comment-section">
+          <span>{comment.postedBy}</span><span>:</span> &nbsp;&nbsp;
           <p>{comment.text}</p>
-          <p>Posted by: {comment.postedBy}</p>
         </div>
       ))}
     </div>
