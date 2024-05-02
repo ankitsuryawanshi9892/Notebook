@@ -213,9 +213,7 @@ const Noteitem = (props) => {
                 {showComments && <Comments toggleComments={toggleComments} fetchComments={getAllComments} comments = {comments} noteId = {note._id} show={showComments} />}
 
         </div>
-
-
-        </>
+    </>
     )
 }
 
