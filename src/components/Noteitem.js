@@ -10,13 +10,14 @@ const Noteitem = (props) => {
     const [comment, setComment] = useState("")
     const [showComments, setShowComments] = useState(true);
     const context = useContext(noteContext);
-    const { deleteNote,getAllComments } = context;
+    const { deleteNote,getAllComments,fetchUserData } = context;
     const { note, updateNote } = props;
     const [isLiked, setisLiked] = useState(false)
     const [count, setcount] = useState(0)
     const [isComment, setisComment] = useState(false);
     const [data, setdata] = useState("")
     const [heading, setheading] = useState(false);
+    const [name, setName] = useState('');
     const commentChange = (event) => {
         setComment(event.target.value);
     };
@@ -46,8 +47,6 @@ const Noteitem = (props) => {
     },[comments])
         // Add a Comment
     const addComment = async (noteId, commentText) => {
-        // event.preventDefault();
-        console.log(noteId,commentText);
         try {
         // API Call
         const response = await fetch(`${host}/api/notes/comment/${noteId}`, {
@@ -58,7 +57,8 @@ const Noteitem = (props) => {
             },
             body: JSON.stringify({ text: commentText })
         });
-        
+        const res = await fetchUserData();
+        setName(res.name);
         if (!response.ok) {
             throw new Error('Failed to add comment');
         }
@@ -207,8 +207,9 @@ const Noteitem = (props) => {
                 </form>
             </div>
             {isComment ? (
-                <div>
+                <div className='added-comment'>
                     {heading && <h6>Comment Added...</h6>}
+                    <span>{name}:</span> &nbsp;
                     <p>{data}</p>
                 </div>
                 ) : null}

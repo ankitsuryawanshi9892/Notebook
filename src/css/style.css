@@ -214,6 +214,17 @@
   left: 100%;
 }
 
+.added-comment p{
+  display: inline-block;
+}
+.added-comment span{
+  font-weight: 900;
+}
+.added-comment {
+  margin-top: 6px;
+  margin-bottom: -18px;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 body {
   width: 100%;
