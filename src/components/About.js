@@ -12,7 +12,7 @@ const ImageUpload = (props) => {
     const [imageUrl, setImageUrl] = useState(null); // To display uploaded image
     const [name, setname] = useState(null);
     const context = useContext(noteContext);
-    const { notes, getNotes, editNote,getAllNotes } = context;
+    const {fetchUserData, notes, getNotes, editNote,getAllNotes } = context;
     const [profession, setprofession] = useState(null);
     const [email, setemail] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
@@ -21,25 +21,14 @@ const ImageUpload = (props) => {
     const ref = useRef(null)
     const refClose = useRef(null)
     const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: "",efile:""})
-    const fetchUserData = async () => {
-        try {
-            // Fetch user data including avatar URL
-            const response = await axios.get(`${host}/api/auth/getuser`, {
-                headers: {
-                    'auth-token': localStorage.getItem('token') // Include auth token
-                }
-            });
-            if (response.data && response.data.avatar) {
-                setname(response.data.name);
-                setImageUrl(response.data.avatar);
-                setprofession(response.data.profession);
-                setemail(response.data.email)
-            }
-        } catch (error) {
-            console.error(error.message);
-            // Handle error gracefully
-        }
-    };
+    const getUserData = async () => {
+        const res = await fetchUserData();
+        console.log(res);
+        setname(res.name);
+        setImageUrl(res.avatar);
+        setprofession(res.profession);
+        setemail(res.email)
+    }
 
     const onChange = (e) => {
         // If the changed element is the file input, set the file state
@@ -80,6 +69,7 @@ const ImageUpload = (props) => {
             setImageUrl(response.data.user.avatar); // Update the image URL for display
             props.showAlert("Image Uploaded Successfully", "success");
             setSelectedFileName('');
+            getUserData();
         } catch (error) {
             console.error(error.message);
             // Handle upload errors gracefully
@@ -110,8 +100,8 @@ const ImageUpload = (props) => {
 
     // Fetch user data including avatar URL on component mount
     useEffect(() => {
-        fetchUserData();
-    }, [handleUpload]);
+        getUserData();
+    }, []);
 
     return (
 

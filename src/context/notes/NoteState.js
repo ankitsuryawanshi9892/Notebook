@@ -34,6 +34,23 @@ const NoteState = (props) => {
     setNotes(json)
   }
 
+  const fetchUserData = async () => {
+    try {
+        // Fetch user data including avatar URL
+        const response = await axios.get(`${host}/api/auth/getuser`, {
+            headers: {
+                'auth-token': localStorage.getItem('token') // Include auth token
+            }
+        });
+        
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+        // Handle error gracefully
+    }
+};
+
+
  // Add a Note
   const addNote = async (title, description, tag,file) => {
       const formData = new FormData();
@@ -129,7 +146,7 @@ const NoteState = (props) => {
 }
 
 return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
+    <NoteContext.Provider value={{fetchUserData, notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
       {props.children}
     </NoteContext.Provider>
   )
