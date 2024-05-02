@@ -40,6 +40,10 @@ const Noteitem = (props) => {
     useEffect(()=>{
         getAllCommentsHandler();
     },[])
+
+    useEffect(()=>{
+        getAllComments(note._id);
+    },[comments])
         // Add a Comment
     const addComment = async (noteId, commentText) => {
         // event.preventDefault();
@@ -62,6 +66,7 @@ const Noteitem = (props) => {
         setdata(comment);
         setheading(true);
         setComment('');
+        toggleComments();
     }    catch(error){
         console.log(error);
     }    
@@ -205,7 +210,7 @@ const Noteitem = (props) => {
                     <p>{data}</p>
                 </div>
                 ) : null}
-                {showComments && <Comments fetchComments={getAllComments} comments = {comments} noteId = {note._id} show={showComments} />}
+                {showComments && <Comments toggleComments={toggleComments} fetchComments={getAllComments} comments = {comments} noteId = {note._id} show={showComments} />}
 
         </div>
 
