@@ -66,7 +66,6 @@ const Noteitem = (props) => {
         setdata(comment);
         setheading(true);
         setComment('');
-        toggleComments();
     }    catch(error){
         console.log(error);
     }    
@@ -186,13 +185,19 @@ const Noteitem = (props) => {
             <div className="div-button" style={{ cursor: 'pointer' }} onClick={getAllCommentsHandler}>
                 {showComments?'Hide Comments':`View all ${comments.length} Comments`}
             </div>
-                <form>
+                <form onSubmit={(e) => { e.preventDefault(); addComment(note._id, comment); }}>
                 <input
                     type="text"
                     name="comment"
                     value={comment}
                     placeholder="Add a comment"
                     onChange={commentChange}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            addComment(note._id, comment);
+                        }
+                    }}
                 />
                 {/* Conditionally render the icon */}
                 {comment.trim().length > 0 && (
@@ -201,9 +206,6 @@ const Noteitem = (props) => {
 
                 </form>
             </div>
-            {/* <div className="comment-added">
-                {isComment?<h4>Comment Added...</h4> <p>data</p>:""}
-            </div> */}
             {isComment ? (
                 <div>
                     {heading && <h6>Comment Added...</h6>}
