@@ -23,7 +23,6 @@ const ImageUpload = (props) => {
     const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: "",efile:""})
     const getUserData = async () => {
         const res = await fetchUserData();
-        console.log(res);
         setname(res.name);
         setImageUrl(res.avatar);
         setprofession(res.profession);
@@ -188,7 +187,7 @@ const ImageUpload = (props) => {
           <ul className="about">
             {/* <li><span>4,073</span>Followers</li>
             <li><span>322</span>Following</li> */}
-            <li><span>200,543</span>Notes</li>
+            <li><span>{notes.length}</span>Notes</li>
           </ul>
 
           <div className="content">
