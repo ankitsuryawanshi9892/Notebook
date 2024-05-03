@@ -91,7 +91,7 @@ const ImageUpload = (props) => {
 
     useEffect(() => {
         if(localStorage.getItem('token')){
-        getAllNotes();
+        getNotes();
         }
         else{
             navigate('/login');
@@ -105,7 +105,7 @@ const ImageUpload = (props) => {
 
     return (
 
-        <div className="main">
+        <div className="main-model">
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -231,7 +231,7 @@ const ImageUpload = (props) => {
           <div className="photos">
           <div className="Parent">
                 <h1 className='sticky-heading'>NOTES</h1>
-                <div className="container mx-2"> 
+                <div className="empty-container mx-2"> 
                 {notes.length===0 && 'No notes to display'}
                 </div>
                 <div className="main">

@@ -98,7 +98,7 @@ const Notes = (props) => {
                 <h1>NOTES</h1>
                 <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
 
-                <div className="container mx-2"> 
+                <div className="container mx-2" style={{width:'100%'}}> 
                 {notes.length===0 && 'No notes to display'}
                 </div>
                 <div className="main">
