@@ -2,6 +2,7 @@ const { type } = require('@testing-library/user-event/dist/type');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const {ObjectId} = mongoose.Schema.Types
+
 const NotesSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +35,11 @@ const NotesSchema = new Schema({
     },
     comments: [{
         text: String,
-        postedBy: String
+        postedBy: String,
+        timestamp : {
+            type:Date,
+            default:Date.now
+        }
     }]
 
 });
