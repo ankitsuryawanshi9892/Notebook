@@ -456,6 +456,7 @@ a {
 .comment-container.visible {
   opacity: 1;
   transform: translate(-50%, -150%) scaleY(1); 
+  width: max-content;
 }
 
 .div-button{
