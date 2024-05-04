@@ -421,11 +421,21 @@ a {
   display: flex;
 }
 
+.comment-section p{
+  width: 155px;
+}
+
 .comment-section span{
   font-weight: 800;
   height: 5px;
   width: auto;
 }
+
+.comment-section .time {
+  margin-left: auto; /* Add this line */
+  font-weight: 200;
+}
+
 .parent-comment{
   position: relative;
 }

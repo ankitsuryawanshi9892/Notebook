@@ -11,7 +11,7 @@ function Comments({noteId,toggleComments,comments,show}) {
           {comments.map(comment => (
             <div key={comment._id} className="comment-section">
               <span>{comment.postedBy}</span><span>:</span> &nbsp;&nbsp;
-              <p>{comment.text}</p>
+              <p>{comment.text}</p><span className='time'>3w ago</span>
             </div>
           ))}
         </div>
