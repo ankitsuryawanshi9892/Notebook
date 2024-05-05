@@ -192,6 +192,7 @@ const Noteitem = (props) => {
                     value={comment}
                     placeholder="Add a comment"
                     onChange={commentChange}
+                    autoComplete="off"
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();

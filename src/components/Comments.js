@@ -19,15 +19,15 @@ function Comments({noteId,toggleComments,comments,show}) {
         const months = Math.floor(days / 30);
 
         if (months > 0) {
-          return `${months} mon${months > 1 ? 's' : ''} ago`;
+          return `${months} mon ago`;
         } else if (weeks > 0) {
-          return `${weeks} w${weeks > 1 ? 's' : ''} ago`;
+          return `${weeks} w ago`;
         } else if (days > 0) {
-          return `${days} d${days > 1 ? 's' : ''} ago`;
+          return `${days} d ago`;
         } else if (hours > 0) {
-          return `${hours} h${hours > 1 ? 's' : ''} ago`;
+          return `${hours} h ago`;
         } else {
-          return `${minutes} min${minutes > 1 ? 's' : ''} ago`;
+          return `${minutes} min ago`;
         }
       };
 
