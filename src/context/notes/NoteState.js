@@ -145,8 +145,37 @@ const NoteState = (props) => {
     }
 }
 
+// Function to calculate time difference
+const getTimeDifference = (timestamp) => {
+        
+      
+  const currentTime = new Date();
+  const commentTime = new Date(timestamp);
+  const difference = Math.abs(currentTime - commentTime);
+
+  const minutes = Math.floor(difference / (1000 * 60));
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+
+  if (months > 0) {
+    return `${months} mon ago`;
+  } else if (weeks > 0) {
+    return `${weeks} w ago`;
+  } else if (days > 0) {
+    return `${days} d ago`;
+  } else if (hours > 0) {
+    return `${hours} h ago`;
+  } else {
+    return `${minutes} min ago`;
+  }
+};
+
+
+
 return (
-    <NoteContext.Provider value={{fetchUserData, notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
+    <NoteContext.Provider value={{fetchUserData, getTimeDifference, notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
       {props.children}
     </NoteContext.Provider>
   )
@@ -188,6 +217,8 @@ return (
 //     // Handle error, perhaps display a message to the user
 //   }
 // }
+
+
 
 
 export default NoteState;

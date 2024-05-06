@@ -1,37 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../css/style.css';
-import { useEffect } from 'react';
+import { useState } from 'react';
+import noteContext from '../context/notes/noteContext';
 
 
 function Comments({noteId,toggleComments,comments,show}) {
-    // Function to calculate time difference
-    const getTimeDifference = (timestamp) => {
-        
-      
-        const currentTime = new Date();
-        const commentTime = new Date(timestamp);
-        const difference = Math.abs(currentTime - commentTime);
-
-        const minutes = Math.floor(difference / (1000 * 60));
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-        const weeks = Math.floor(days / 7);
-        const months = Math.floor(days / 30);
-
-        if (months > 0) {
-          return `${months} mon ago`;
-        } else if (weeks > 0) {
-          return `${weeks} w ago`;
-        } else if (days > 0) {
-          return `${days} d ago`;
-        } else if (hours > 0) {
-          return `${hours} h ago`;
-        } else {
-          return `${minutes} min ago`;
-        }
-      };
-
-  
+      const context = useContext(noteContext)
+      const {getTimeDifference} = context;
     return (
       <div className="parent-comment">
         <div className={`comment-container my-3 comments ${show ? 'visible' : ''}`}>
