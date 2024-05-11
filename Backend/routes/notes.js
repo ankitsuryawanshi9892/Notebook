@@ -85,50 +85,37 @@ router.post('/addnote', fetchuser, [
 
 
 // ROUTE 3: Update an existing Note using: PUT "/api/notes/updatenote". Login required
-const editNote = async (id, title, description, tag, file) => {
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('tag', tag);
-    formData.append('file', file); // Append file to FormData
-  
+router.put('/updatenote/:id', fetchuser, upload.single('file'), async (req, res) => {
+    const { title, description, tag } = req.body;
+    console.log(req.body)
     try {
-      // Make HTTP PUT request to backend
-      const response = await axios.put(`${host}/api/notes/updatenote/${id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Set content type header for FormData
-          "auth-token": localStorage.getItem('token')
+        // Create a newNote object
+        const newNote = {};
+        if (title) { newNote.title = title };
+        if (description) { newNote.description = description };
+        if (tag) { newNote.tag = tag };
+        if (req.file) {
+            newNote.file = {
+                filename: req.file.filename,
+                path: req.file.path
+            };
         }
-      });
-      
-      if (response.status === 401) {
-        // Show alert using SweetAlert2 if user is not allowed
-        Swal.fire({
-          icon: 'error',
-          title: 'Not Allowed',
-          text: 'You are not allowed to update this note.',
-        });
-        return;
-      }
-  
-      // Handle successful response
-      console.log('Note updated:', response.data);
-  
-      // Logic to update in client state
-      const updatedNotes = notes.map((note) => {
-        if (note._id === id) {
-          return { ...note, title, description, tag, file };
-        }
-        return note;
-      });
-      setNotes(updatedNotes);
-    } catch (error) {
-      // Handle error
-      console.error('Error updating note:', error);
-    }
-  }
+        
+        // Find the note to be updated and update it
+        let note = await Note.findById(req.params.id);
+        if (!note) { return res.status(404).send("Not Found") }
 
-  
+        if (note.user.toString() !== req.user.id) {
+            return res.status(401).send("Not Allowed");
+        }
+        note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+        res.json({ note });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 // ROUTE 4: Delete an existing Note using: DELETE "/api/notes/deletenote". Login required
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
     try {

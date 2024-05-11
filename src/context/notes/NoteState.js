@@ -86,32 +86,43 @@ const NoteState = (props) => {
     formData.append('description', description);
     formData.append('tag', tag);
     formData.append('file', file); // Append file to FormData
-
+  
     try {
-        // Make HTTP PUT request to backend
-        const response = await axios.put(`${host}/api/notes/updatenote/${id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data', // Set content type header for FormData
-                "auth-token": localStorage.getItem('token')
-            }
+      // Make HTTP PUT request to backend
+      const response = await axios.put(`${host}/api/notes/updatenote/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set content type header for FormData
+          "auth-token": localStorage.getItem('token')
+        }
+      });
+      
+      if (response.status === 401) {
+        // Show alert using SweetAlert2 if user is not allowed
+        Swal.fire({
+          icon: 'error',
+          title: 'Not Allowed',
+          text: 'You are not allowed to update this note.',
         });
-        // Handle successful response
-        console.log('Note updated:', response.data);
-
-        // Logic to update in client state
-        const updatedNotes = notes.map((note) => {
-            if (note._id === id) {
-                return { ...note, title, description, tag, file };
-            }
-            return note;
-        });
-        setNotes(updatedNotes);
+        return;
+      }
+  
+      // Handle successful response
+      console.log('Note updated:', response.data);
+  
+      // Logic to update in client state
+      const updatedNotes = notes.map((note) => {
+        if (note._id === id) {
+          return { ...note, title, description, tag, file };
+        }
+        return note;
+      });
+      setNotes(updatedNotes);
     } catch (error) {
-        // Handle error
-        console.error('Error updating note:', error);
+      // Handle error
+      console.error('Error updating note:', error);
     }
-}
-
+  }
+  
 const deleteNote = async (id) => {
   try {
     // API Call
