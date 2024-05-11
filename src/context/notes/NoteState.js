@@ -1,6 +1,7 @@
 import NoteContext from "./noteContext";
 import axios from "axios";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 
 const NoteState = (props) => {
   const host = "http://localhost:5000"
@@ -111,8 +112,8 @@ const NoteState = (props) => {
     }
 }
 
-  // Delete a Note
-  const deleteNote = async (id) => {
+const deleteNote = async (id) => {
+  try {
     // API Call
     const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: 'DELETE',
@@ -121,10 +122,25 @@ const NoteState = (props) => {
         "auth-token": localStorage.getItem('token')
       }
     });
-    const json = response.json(); 
-    const newNotes = notes.filter((note) => { return note._id !== id })
-    setNotes(newNotes)
+
+    if (response.status === 401) {
+      // Show alert using SweetAlert2 if user is not allowed
+      Swal.fire({
+        icon: 'error',
+        title: 'Not Allowed',
+        text: 'You are not allowed to delete this note.',
+      });
+      return;
+    }
+
+    const json = await response.json(); 
+    const newNotes = notes.filter((note) => { return note._id !== id });
+    setNotes(newNotes);
+  } catch (error) {
+    console.error(error);
+    // Handle other errors as needed
   }
+}
 
 
   const getAllComments = async (id) => {
