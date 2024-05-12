@@ -229,6 +229,20 @@
   margin-bottom: -18px;
 }
 
+/* Search Styles */
+#search-form{
+  display: inline-block;
+}
+#search-form input{
+  display: inline-block;
+  border-radius: 5px;
+  height: 40px;
+  outline: none;
+}
+#search-form .icon{
+  margin-right: 5px
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 body {
   width: 100%;
