@@ -34,9 +34,7 @@ const Navbar = () => {
                         <div>
                             <form action="" id="search-form">
                                 <input type="text" id='search' placeholder='Search Here...' autoComplete='off' />
-                                <button className="btn btn-primary mx-1 button">
-                                <i class="icon fa-solid fa-magnifying-glass"></i>Search
-                                </button>
+                                <i class="icon fa-solid fa-magnifying-glass"></i>
                             </form>
                             <button className="btn btn-primary button" onClick={handleLogout}>
                                 Logout
