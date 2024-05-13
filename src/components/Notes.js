@@ -96,8 +96,13 @@ const Notes = (props) => {
 
             <div className="Parent">
                 <h1>NOTES</h1>
-                <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
-
+                <div className="search-button-container">
+                    <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
+                    <form id="search-form">
+                        <input type="text" id='search' placeholder='Search note...' autoComplete='off' />
+                        <i className="icon fa-solid fa-magnifying-glass"></i>
+                    </form>
+                </div>
                 <div className="container mx-2" style={{width:'100%'}}> 
                 {notes.length===0 && 'No notes to display'}
                 </div>

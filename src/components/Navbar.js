@@ -32,10 +32,6 @@ const Navbar = () => {
                     <Link className="btn btn-primary mx-1 button" to="/signup" role="button">Signup</Link>
                     </form>:(
                         <div>
-                            <form action="" id="search-form">
-                                <input type="text" id='search' placeholder='Search Here...' autoComplete='off' />
-                                <i class="icon fa-solid fa-magnifying-glass"></i>
-                            </form>
                             <button className="btn btn-primary button" onClick={handleLogout}>
                                 Logout
                             </button>
