@@ -9,17 +9,38 @@ const Notes = (props) => {
     const context = useContext(noteContext);
     let navigate = useNavigate();
     const { notes,getAllNotes, editNote } = context;
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredNotes, setFilteredNotes] = useState(notes);
+    const [searchedQuery, setSearchedQuery] = useState('');
+
+
+
+    const handleSearchSubmit = (term) => {
+        const filterNotes = notes.filter(note => 
+            note.title.toLowerCase().includes(term.toLowerCase()) || 
+            note.description.toLowerCase().includes(term.toLowerCase())
+        );
+        
+        setFilteredNotes(filterNotes);
+        setSearchedQuery(term);
+        setSearchTerm('');
+    }
     
+    
+    const changeSearch = (e) =>{
+        setSearchTerm(e.target.value);
+    }
+
     // sort the notes
     notes.sort((a, b) => a.title.localeCompare(b.title));
+
     useEffect(() => {
-        if(localStorage.getItem('token')){
-        getAllNotes();
-        }
-        else{
+        if (localStorage.getItem('token')) {
+            getAllNotes();
+        } else {
             navigate('/login');
         }
-    }, [editNote])
+    }, [editNote]);
     const ref = useRef(null)
     const refClose = useRef(null)
     const [note, setNote] = useState({id: "", etitle: "", edescription: "", etag: "",efile:""})
@@ -98,18 +119,38 @@ const Notes = (props) => {
                 <h1>NOTES</h1>
                 <div className="search-button-container">
                     <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
-                    <form id="search-form">
-                        <input type="text" id='search' placeholder='Search note...' autoComplete='off' />
+                    
+                    <form onSubmit={(e)=>{e.preventDefault(); handleSearchSubmit(searchTerm)}} id="search-form">
+                        <input onChange={changeSearch} value={searchTerm} type="text" id='search' placeholder='Search note...' name='search' autoComplete='off' />
                         <i className="icon fa-solid fa-magnifying-glass"></i>
                     </form>
                 </div>
                 <div className="container mx-2" style={{width:'100%'}}> 
-                {notes.length===0 && 'No notes to display'}
                 </div>
                 <div className="main">
-                    {notes.map((note) => {
-                        return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
-                    })}
+                    {searchedQuery ? (
+                            // Render filtered notes if there is a search query
+                            <>
+                                {filteredNotes.length === 0 ? (
+                                    <p>No notes to display</p>
+                                ) : (
+                                    filteredNotes.map(note => (
+                                        <Noteitem showAlert={props.showAlert} key={note._id} updateNote={updateNote} note={note} />
+                                    ))
+                                )}
+                            </>
+                        ) : (
+                            // Render all notes if there is no search query
+                            <>
+                                {notes.length === 0 ? (
+                                    <p>No notes to display</p>
+                                ) : (
+                                    notes.map(note => (
+                                        <Noteitem showAlert={props.showAlert} key={note._id} updateNote={updateNote} note={note} />
+                                    ))
+                                )}
+                            </>
+                        )}
                 </div>
             </div>
         </>
