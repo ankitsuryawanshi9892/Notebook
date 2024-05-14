@@ -47,11 +47,11 @@ const AddNote = ({ toggleAddNote, show }) => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="file" className="form-label">File:</label>
-                    <input type="file" accept=".pdf" id="file" name="file" onChange={onChange} required />
+                    <input type="file" accept=".pdf" id="file" name="file" onChange={onChange}/>
                 </div>
                 <span className="tooltip">
                     <button
-                        disabled={note.title.length < 5 || note.description.length < 5 || !note.file}
+                        disabled={note.title.length < 5 || note.description.length < 5}
                         type="submit"
                         className="btn btn-primary button"
                         onClick={handleClick}
@@ -59,7 +59,7 @@ const AddNote = ({ toggleAddNote, show }) => {
                         Add Note
                     </button>
                     <span className="tooltiptext">
-                        {note.title.length < 5 || note.description.length < 5 || !note.file ? "Fill Required Fields" : ""}
+                        {note.title.length < 5 || note.description.length < 5 ? "Fill Required Fields" : ""}
                     </span>
                 </span>
             </form>

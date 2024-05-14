@@ -58,7 +58,9 @@ const NoteState = (props) => {
         formData.append('title', title);
         formData.append('description', description);
         formData.append('tag', tag);
-        formData.append('file', file); // Append file to FormData
+        if (file) {
+                formData.append('file', file); // Append file to FormData
+            }
 
         try {
             // Make HTTP POST request to backend

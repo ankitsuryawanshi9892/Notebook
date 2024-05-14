@@ -51,13 +51,21 @@ router.post('/addnote', fetchuser, [
     console.log(req.file)
     try {
         const { title, description, tag} = req.body;
+        let fileData = {};
+        if (req.file) {
+            // If a file is uploaded, extract file information
+            const { filename, path } = req.file;
+            fileData = {
+                filename,
+                path
+            };
+        }
         // If there are errors, return Bad request and the errors
         const errors = validationResult(req.body);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
         // Extract file information from req.file
-        const { filename, path } = req.file;
 
         // Save this file information along with your note data
         const note = new Note({
@@ -66,10 +74,7 @@ router.post('/addnote', fetchuser, [
             tag,
             user: req.user.id,
             uid: crypto.randomUUID(),
-            file: {
-                filename,
-                path
-            }
+            file: fileData
         });
 
         const savedNote = await note.save();
