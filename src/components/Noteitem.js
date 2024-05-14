@@ -169,7 +169,19 @@ const Noteitem = (props) => {
                     <i className='fa-solid fa-heart mx-2' onClick={() => handleLike(note._id)}></i>
                 )}
                     <span className='like-count'>{count}</span>
-                    <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button>
+                    {/* <button className='button btn item' onClick={()=>showPdf(note.file.filename)}>Show Pdf</button> */}
+                    <span className="tooltip">
+                    <button
+                        disabled={!note.file}
+                        className="button btn item"
+                        onClick={()=>showPdf(note.file.filename)}
+                    >
+                        Show PDF
+                    </button>
+                    <span className="tooltiptext">
+                        {!note.file && "File not added"}
+                    </span>
+                </span>
                     <i className="fa-solid fa-ellipsis-vertical mx-2" onClick={handleDropdown}></i>
                     {dropdown && <div className="del-up mx-6">
                         <i className="far fa-trash-alt mx-2 item" onClick={()=>{deleteNote(note._id)}}></i>
