@@ -18,7 +18,8 @@ const Notes = (props) => {
     const handleSearchSubmit = (term) => {
         const filterNotes = notes.filter(note => 
             note.title.toLowerCase().includes(term.toLowerCase()) || 
-            note.description.toLowerCase().includes(term.toLowerCase())
+            note.description.toLowerCase().includes(term.toLowerCase()) || 
+            note.tag.toLowerCase().includes(term.toLowerCase())
         );
         
         setFilteredNotes(filterNotes);
