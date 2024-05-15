@@ -58,9 +58,12 @@ const AddNote = ({ toggleAddNote, show }) => {
                     >
                         Add Note
                     </button>
-                    <span className="tooltiptext">
-                        {note.title.length < 5 || note.description.length < 5 ? "Fill Required Fields" : ""}
-                    </span>
+                    {(note.title.length < 5 || note.description.length < 5) && 
+                        (
+                            <span className="tooltiptext">
+                                Fill Required Fields
+                            </span>
+                        )}
                 </span>
             </form>
         </div>
