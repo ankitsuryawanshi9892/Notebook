@@ -194,9 +194,10 @@ const Noteitem = (props) => {
                 <p className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas minus dolorem rerum, aliquid nam accusamus illum neque, placeat saepe doloribus sit laboriosam ab, similique ipsum iste. Ea eaque officiis laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, praesentium nisi cupiditate ipsa molestias atque ex est error quaerat ratione recusandae asperiores eaque tempore eligendi quibusdam nesciunt aspernatur cum modi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum iste asperiores vero aut ab, voluptatem quod dolor voluptas. Aliquam ipsam labore exercitationem enim blanditiis explicabo reprehenderit iusto inventore nam sint.</p>
             </div>
             <div className="comment">
-            <div className="div-button" style={{ cursor: 'pointer' }} onClick={getAllCommentsHandler}>
-                {showComments?'Hide Comments':`View all ${comments.length} Comments`}
+            <div className={`div-button ${comments.length === 0 ? 'disabled' : ''}`} style={{ cursor: comments.length === 0 ? 'not-allowed' : 'pointer' }} onClick={comments.length !== 0 ? getAllCommentsHandler : undefined}>
+                {comments.length === 0 ? 'No comments added' : (showComments ? 'Hide Comments' : `View all ${comments.length} Comments`)}
             </div>
+
                 <form onSubmit={(e) => { e.preventDefault(); addComment(note._id, comment); }}>
                 <input
                     type="text"
