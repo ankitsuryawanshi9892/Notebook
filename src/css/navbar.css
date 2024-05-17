@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 90%;
+}
+
+body{
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.nav-main{
+    width: 100%;
+    height: 50px;
+    display: grid;
+    background-color: #7EC8E3;
+    grid-template-columns: 0.3fr 1fr 1.5fr 1fr 0.3fr;;
+}
+
+.logo{
+    grid-column: 2/3;
+    place-content: center;
+}
+
+.logo h2 {
+    font-size: 2em; /* Adjust the size as needed */
+    background: linear-gradient(to right, #19191a, #7EC8E3); /* Adjust gradient colors */
+    /* letter-spacing: 2px; */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-items-desktop{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 12px 10px;
+}
+
+.nav-items-desktop li{
+    list-style: none;
+    margin: 0px 5px;
+}
+
+.nav-items-desktop li a{
+    text-decoration: none;
+    font-size: larger;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #050A30;
+}
+
+.nav-right{
+    text-align: end;
+    margin: 12px 10px;
+}
+
+.nav-right form{
+    display: inline-block;
+}
+
+.nav-right button{
+    padding: 5px 5px;
+    font-size: 500;
+}
+#search-form input{
+    width: 10.7em;
+    padding: 2px 8px;
+    border: none;
+    border-radius: 10px;
+    height: 25px;
+    outline:#7EC8E3;
+}
+
+#search-form .icon{
+    position: absolute;
+    right: 15px; /* Adjust to align the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #344e41;
+  }
+
+.humberger-icon{
+    display: none;
+}
+
+@media (max-width:1050px) {
+    .humberger-icon{
+        display: inline;
+    }    
+
+    .nav-right .logout-button{
+        display: none;
+    }
+    .nav-items-desktop{
+        display: none;
+    }
+    
+}

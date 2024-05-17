@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-  
+import '../css/navbar.css';  
 
 const Navbar = () => {
     let location = useLocation();
@@ -11,35 +10,35 @@ const Navbar = () => {
       navigate('/login');
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">iNotebook</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname==="/"? "active": ""}`} aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname==="/about"? "active": ""}`} to="/about">About</Link>
-                        </li>
+        <>
+            <nav className="nav-main">
+            <div className="logo">
+                <h2>iNotebook</h2>
+            </div>
+            <div className="menu-items">
+                <ul className="nav-items-desktop">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Your Tasks</a></li>
+                    <li><a href="">Ask Questions</a></li>
+                </ul>
+            </div>
+            <div className="nav-right">
 
-                    </ul>
-                    {!localStorage.getItem('token')?<form className="d-flex"> 
-                    <Link className="btn btn-primary mx-1 button" to="/login" role="button">Login</Link>
-                    <Link className="btn btn-primary mx-1 button" to="/signup" role="button">Signup</Link>
-                    </form>:(
-                        <div>
-                            <button className="btn btn-primary button" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </div>
-                    )}
+                <form id="search-form">
+                    <input type="text" placeholder="Search Note..." id="search-input"/>
+                    <i className="fa-solid fa-magnifying-glass icon"></i>
+                </form>
+                <button className="logout-button button">Log Out</button>
+                <div className="humberger-icon">
+                    <i className="fa-solid fa-bars"></i>
                 </div>
             </div>
         </nav>
+        <ul className="nav-items-mobile">
+            <li></li>
+        </ul>
+        </>
     )
 }
 
