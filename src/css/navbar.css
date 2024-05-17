@@ -16,11 +16,14 @@ body{
 }
 
 .nav-main{
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 50px;
     display: grid;
-    background-color: #7EC8E3;
-    grid-template-columns: 0.3fr 1fr 1.5fr 1fr 0.3fr;;
+    grid-template-columns: 0.3fr 1fr 1.5fr 1.5fr 0.3fr;;
+    background-color: #b0c4a1;
+    z-index: 1000;
 }
 
 .logo{
@@ -90,11 +93,19 @@ body{
     display: none;
 }
 
+.sign-up-login{
+    display: inline;
+}
+
 @media (max-width:1050px) {
     .humberger-icon{
         display: inline;
+        color: #050A30;
     }    
 
+    .nav-right{
+        width:max-content;
+    }
     .nav-right .logout-button{
         display: none;
     }

@@ -24,7 +24,7 @@
   margin-top: -10px;
   text-align: center;
   position: sticky;
-  top: 0;
+  top: 50px;
   background-color: #a3b18a; /* Optionally, add a background color to the heading */
   z-index: 1000;
 }

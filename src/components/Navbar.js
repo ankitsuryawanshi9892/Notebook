@@ -24,12 +24,23 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="nav-right">
-                <button className="search-button button"></button>
+            {/* onClick={toggleAddNote} {showAddNote? 'Close Form':'Add A Note'} */}
+                <button className="button add-button">Add A Note</button>
                 <form id="search-form">
                     <input type="text" placeholder="Search Note..." id="search-input"/>
                     <i className="fa-solid fa-magnifying-glass icon"></i>
                 </form>
-                <button className="logout-button button">Log Out</button>
+                {!localStorage.getItem('token')?<form className="sign-up-login"> 
+                <Link className="btn btn-primary button" to="/login" role="button">Login</Link>
+                <Link className="btn btn-primary button" to="/signup" role="button">Signup</Link>
+                </form>:(
+                    <>
+                        {/* onClick={handleLogout} */}
+                    <button className="btn btn-primary button">
+                        Logout
+                    </button>
+                    </>
+                )}
                 <div className="humberger-icon">
                     <i className="fa-solid fa-bars"></i>
                 </div>
