@@ -17,14 +17,14 @@ const Navbar = () => {
             </div>
             <div className="menu-items">
                 <ul className="nav-items-desktop">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="">About</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><a href="/about">About</a></li>
                     <li><a href="">Your Tasks</a></li>
                     <li><a href="">Ask Questions</a></li>
                 </ul>
             </div>
             <div className="nav-right">
-
+                <button className="search-button button"></button>
                 <form id="search-form">
                     <input type="text" placeholder="Search Note..." id="search-input"/>
                     <i className="fa-solid fa-magnifying-glass icon"></i>
