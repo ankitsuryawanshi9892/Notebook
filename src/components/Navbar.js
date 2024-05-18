@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../css/navbar.css';  
+import {useState} from 'react';
 
 const Navbar = () => {
     let location = useLocation();
@@ -9,6 +10,8 @@ const Navbar = () => {
       localStorage.removeItem('token');
       navigate('/login');
     }
+
+    const [shownav, setShownav] = useState(false)
     return (
         <>
             <nav className="nav-main">
@@ -18,7 +21,7 @@ const Navbar = () => {
             <div className="menu-items">
                 <ul className="nav-items-desktop">
                     <li><Link to="/">Home</Link></li>
-                    <li><a href="/about">About</a></li>
+                    <li><Link to="/about">About</Link></li>
                     <li><a href="">Your Tasks</a></li>
                     <li><a href="">Ask Questions</a></li>
                 </ul>
@@ -42,12 +45,15 @@ const Navbar = () => {
                     </>
                 )}
                 <div className="humberger-icon">
-                    <i className="fa-solid fa-bars"></i>
+                    <i className="fa-solid fa-bars" onClick={()=>{setShownav(!shownav)}}></i>
                 </div>
             </div>
         </nav>
-        <ul className="nav-items-mobile">
-            <li></li>
+        <ul className={`nav-items-mobile ${shownav?'show-nav-items':''}`}>
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Your Tasks</a></li>
+            <li><a href="">Ask Questions</a></li>
         </ul>
         </>
     )

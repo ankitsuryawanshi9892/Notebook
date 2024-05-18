@@ -226,21 +226,20 @@ const ImageUpload = (props) => {
     </div>
 
           </nav>
-
           <div className="photos">
-          <div className="Parent">
-                <h1 className='sticky-heading'>NOTES</h1>
+            <div className="Parent">
+                <h1 className='about-notes'>NOTES</h1>
                 <div className="empty-container mx-2"> 
-                {notes.length===0 && 'No notes to display'}
+                {notes.length === 0 && 'No notes to display'}
                 </div>
                 <div className="main">
-                    {notes.map((note) => {
-                        return <Noteitem showAlert = {props.showAlert} key={note._id} updateNote={updateNote} note={note} />
-                    })}
+                {notes.map((note) => {
+                    return <Noteitem showAlert={props.showAlert} key={note._id} updateNote={updateNote} note={note} />
+                })}
                 </div>
             </div>
-          
-          </div>
+            </div>
+
         </div>
       </div>
     </div>

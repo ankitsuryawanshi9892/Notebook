@@ -59,6 +59,30 @@ body{
     color: #050A30;
 }
 
+.nav-items-mobile {
+    max-height: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 5px 10px;
+    background-color: #b0c4a1;
+    transition: max-height 1s ease, opacity 1s ease;
+    transform: translateY(-20px); /* Start slightly above */
+}
+
+
+.nav-items-mobile li{
+    list-style: none;
+    padding: 5px 5px;
+}
+
+.nav-items-mobile li a{
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #050A30;
+}
+
 .nav-right{
     text-align: end;
     margin: 12px 10px;
@@ -91,6 +115,7 @@ body{
 
 .humberger-icon{
     display: none;
+    margin-left: 5px;
 }
 
 .sign-up-login{
@@ -112,5 +137,14 @@ body{
     .nav-items-desktop{
         display: none;
     }
+
+    .show-nav-items {
+        max-height: 500px; /* Adjust to a value that fits your content */
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(0);
+    }
+    
     
 }
