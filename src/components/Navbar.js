@@ -13,11 +13,22 @@ const Navbar = (props) => {
       navigate('/login');
     }
 
+    
     const [showAddNote, setShowAddNote] = useState(false); // State to track whether to show AddNote component
     const [shownav, setShownav] = useState(false)
     const toggleAddNote = () => {
         setShowAddNote(!showAddNote);
     };
+    window.onscroll = function() {setShownav(!shownav);};
+
+    // function scrollFunction() {
+    //     if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+    //         setShownav(false);
+    //     }
+    //     else{
+    //     setShownav(true);
+    //     }
+    // }
 
     return (
         <>
@@ -57,7 +68,7 @@ const Navbar = (props) => {
                 </div>
             </div>
         </nav>
-        <ul className={`nav-items-mobile ${shownav?'show-nav-items':''}`}>
+        <ul id='nav-items' className={`nav-items-mobile ${shownav?'show-nav-items':''}`}>
             <li><a href="">Home</a></li>
             <li><a href="">About</a></li>
             <li><a href="">Your Tasks</a></li>

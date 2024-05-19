@@ -33,7 +33,7 @@ body{
 
 .logo h2 {
     font-size: 2em; /* Adjust the size as needed */
-    background: linear-gradient(to right, #19191a, #7EC8E3); /* Adjust gradient colors */
+    background: linear-gradient(to right, #19191a, #003091); /* Adjust gradient colors */
     /* letter-spacing: 2px; */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -141,9 +141,12 @@ body{
     .show-nav-items {
         max-height: 500px; /* Adjust to a value that fits your content */
         opacity: 1;
+        position: sticky;
+        top: 40px;
         display: flex;
         flex-direction: column;
         transform: translateY(0);
+        z-index: 500;
     }
     
     
