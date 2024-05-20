@@ -48,6 +48,10 @@ const Navbar = (props) => {
             <div className="nav-right">
             {/* onClick={toggleAddNote} {showAddNote? 'Close Form':'Add A Note'} */}
                 <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
+                <form id="search-form">
+                    <input type="text" placeholder="Search Note..." id="search-input"/>
+                    <i className="fa-solid fa-magnifying-glass icon"></i>
+                </form>
                 {!localStorage.getItem('token')?<form className="sign-up-login"> 
                 <Link className="btn btn-primary button" to="/login" role="button">Login</Link>
                 <Link className="btn btn-primary button" to="/signup" role="button">Signup</Link>
