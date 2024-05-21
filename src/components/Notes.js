@@ -8,29 +8,29 @@ import "../css/style.css"
 const Notes = (props) => {
     const context = useContext(noteContext);
     let navigate = useNavigate();
-    const { notes,getAllNotes, editNote } = context;
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredNotes, setFilteredNotes] = useState(notes);
-    const [searchedQuery, setSearchedQuery] = useState('');
+    const { notes,getAllNotes, editNote, handleSearchSubmit,searchTerm, filteredNotes,searchedQuery, changeSearch } = context;
+    // const [searchTerm, setSearchTerm] = useState('');
+    // const [filteredNotes, setFilteredNotes] = useState(notes);
+    // const [searchedQuery, setSearchedQuery] = useState('');
 
 
 
-    const handleSearchSubmit = (term) => {
-        const filterNotes = notes.filter(note => 
-            note.title.toLowerCase().includes(term.toLowerCase()) || 
-            note.description.toLowerCase().includes(term.toLowerCase()) || 
-            note.tag.toLowerCase().includes(term.toLowerCase())
-        );
+    // const handleSearchSubmit = (term) => {
+    //     const filterNotes = notes.filter(note => 
+    //         note.title.toLowerCase().includes(term.toLowerCase()) || 
+    //         note.description.toLowerCase().includes(term.toLowerCase()) || 
+    //         note.tag.toLowerCase().includes(term.toLowerCase())
+    //     );
         
-        setFilteredNotes(filterNotes);
-        setSearchedQuery(term);
-        setSearchTerm('');
-    }
+    //     setFilteredNotes(filterNotes);
+    //     setSearchedQuery(term);
+    //     setSearchTerm('');
+    // }
     
     
-    const changeSearch = (e) =>{
-        setSearchTerm(e.target.value);
-    }
+    // const changeSearch = (e) =>{
+    //     setSearchTerm(e.target.value);
+    // }
 
     // sort the notes
     notes.sort((a, b) => a.title.localeCompare(b.title));

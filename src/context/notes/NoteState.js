@@ -7,6 +7,10 @@ const NoteState = (props) => {
   const host = "http://localhost:5000"
   const notesInitial = []
   const [notes, setNotes] = useState(notesInitial)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredNotes, setFilteredNotes] = useState(notes);
+  const [searchedQuery, setSearchedQuery] = useState('');
+
 
   // Get user specific Notes
   const getNotes = async () => {
@@ -201,10 +205,26 @@ const getTimeDifference = (timestamp) => {
   }
 };
 
+const handleSearchSubmit = (term) => {
+  const filterNotes = notes.filter(note => 
+      note.title.toLowerCase().includes(term.toLowerCase()) || 
+      note.description.toLowerCase().includes(term.toLowerCase()) || 
+      note.tag.toLowerCase().includes(term.toLowerCase())
+  );
+  
+  setFilteredNotes(filterNotes);
+  setSearchedQuery(term);
+  setSearchTerm('');
+}
+
+const changeSearch = (e) =>{
+  setSearchTerm(e.target.value);
+}
+
 
 
 return (
-    <NoteContext.Provider value={{fetchUserData, getTimeDifference, notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
+    <NoteContext.Provider value={{changeSearch, searchTerm,filteredNotes, searchedQuery, handleSearchSubmit, fetchUserData, getTimeDifference, notes, addNote, deleteNote, editNote, getNotes,getAllNotes,getAllComments }}>
       {props.children}
     </NoteContext.Provider>
   )

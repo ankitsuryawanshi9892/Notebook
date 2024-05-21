@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../css/navbar.css';  
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import AddNote from './AddNote';
+import noteContext from "../context/notes/noteContext"
 
 
 const Navbar = (props) => {
     let location = useLocation();
+    const context = useContext(noteContext);
+    const { handleSearchSubmit,searchTerm,changeSearch } = context;
+
     let navigate = useNavigate();
     const handleLogout=()=>{
       localStorage.removeItem('token');
@@ -48,9 +52,10 @@ const Navbar = (props) => {
             <div className="nav-right">
             {/* onClick={toggleAddNote} {showAddNote? 'Close Form':'Add A Note'} */}
                 <button onClick={toggleAddNote} className="button add-button">{showAddNote? 'Close Form':'Add A Note'}</button>
-                <form id="search-form">
-                    <input type="text" placeholder="Search Note..." id="search-input"/>
-                    <i className="fa-solid fa-magnifying-glass icon"></i>
+                    
+                <form onSubmit={(e)=>{e.preventDefault(); handleSearchSubmit(searchTerm)}} id="search-form">
+                    <input onChange={changeSearch} value={searchTerm} type="text" id='search' placeholder='Search note...' name='search' autoComplete='off' />
+                    <i className="icon fa-solid fa-magnifying-glass"></i>
                 </form>
                 {!localStorage.getItem('token')?<form className="sign-up-login"> 
                 <Link className="btn btn-primary button" to="/login" role="button">Login</Link>
