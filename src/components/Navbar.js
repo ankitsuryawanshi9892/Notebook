@@ -23,7 +23,6 @@ const Navbar = (props) => {
     const toggleAddNote = () => {
         setShowAddNote(!showAddNote);
     };
-    window.onscroll = function() {setShownav(!shownav);};
 
     // function scrollFunction() {
     //     if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {

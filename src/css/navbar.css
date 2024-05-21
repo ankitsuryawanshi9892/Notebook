@@ -62,13 +62,18 @@ body{
 .nav-items-mobile {
     max-height: 0;
     opacity: 0;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    margin: 5px 10px;
+    margin: 5px 0px;
     background-color: #b0c4a1;
-    transition: max-height 1s ease, opacity 1s ease;
+    transition: all 0.5s ease;
     transform: translateY(-20px); /* Start slightly above */
+    position: fixed;
+    width: 100%;
+    top: 40px;
+    transform: translateY(0);
+    z-index: 2000;
 }
 
 
@@ -140,13 +145,9 @@ body{
 
     .show-nav-items {
         max-height: 500px; /* Adjust to a value that fits your content */
+        margin-top: 8px;
         opacity: 1;
-        position: sticky;
-        top: 40px;
-        display: flex;
-        flex-direction: column;
-        transform: translateY(0);
-        z-index: 500;
+
     }
     
     
