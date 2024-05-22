@@ -68,7 +68,7 @@ const Navbar = (props) => {
                     </>
                 )}
                 <div className="humberger-icon">
-                    <i className="fa-solid fa-bars" onClick={()=>{setShownav(!shownav)}}></i>
+                    <i className={`fa-solid fa-${shownav?"xmark":"bars"}`} onClick={()=>{setShownav(!shownav)}}></i>
                 </div>
             </div>
         </nav>
