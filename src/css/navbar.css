@@ -38,6 +38,10 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
+.nav-items li:hover{
+    border-bottom: 2px solid #1c1b1b;
+}
+
 .nav-items-desktop{
     width: 100%;
     display: flex;

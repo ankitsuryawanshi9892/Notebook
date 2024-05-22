@@ -41,7 +41,7 @@ const Navbar = (props) => {
                 <h2>iNotebook</h2>
             </div>
             <div className="menu-items">
-                <ul className="nav-items-desktop">
+                <ul className="nav-items nav-items-desktop">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/about">About</Link></li>
                     <li><a href="">Your Tasks</a></li>
@@ -72,7 +72,7 @@ const Navbar = (props) => {
                 </div>
             </div>
         </nav>
-        <ul id='nav-items' className={`nav-items-mobile ${shownav?'show-nav-items':''}`}>
+        <ul id='nav-items' className={`nav-items nav-items-mobile ${shownav?'show-nav-items':''}`}>
             <li><a href="">Home</a></li>
             <li><a href="">About</a></li>
             <li><a href="">Your Tasks</a></li>
