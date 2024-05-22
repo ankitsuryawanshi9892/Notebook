@@ -41,9 +41,9 @@ const Navbar = (props) => {
                 <h2>iNotebook</h2>
             </div>
             <div className="menu-items">
-                <ul className="nav-items-desktop">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
+                <ul className="nav-items nav-items-desktop">
+                    <li className={`${location.pathname==="/"? "active": ""}`}><Link to="/">Home</Link></li>
+                    <li className={`${location.pathname==="/about"? "active": ""}`}><Link to="/about">About</Link></li>
                     <li><a href="">Your Tasks</a></li>
                     <li><a href="">Ask Questions</a></li>
                 </ul>
@@ -68,11 +68,11 @@ const Navbar = (props) => {
                     </>
                 )}
                 <div className="humberger-icon">
-                    <i className="fa-solid fa-bars" onClick={()=>{setShownav(!shownav)}}></i>
+                    <i className={`fa-solid fa-${shownav?"xmark":"bars"}`} onClick={()=>{setShownav(!shownav)}}></i>
                 </div>
             </div>
         </nav>
-        <ul id='nav-items' className={`nav-items-mobile ${shownav?'show-nav-items':''}`}>
+        <ul id='nav-items' className={`nav-items nav-items-mobile ${shownav?'show-nav-items':''}`}>
             <li><a href="">Home</a></li>
             <li><a href="">About</a></li>
             <li><a href="">Your Tasks</a></li>
