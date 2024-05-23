@@ -62,7 +62,7 @@ const Navbar = (props) => {
                 </form>:(
                     <>
                         {/* onClick={handleLogout} */}
-                    <button className="btn btn-primary button">
+                    <button onClick={handleLogout} className="btn btn-primary button">
                         Logout
                     </button>
                     </>
